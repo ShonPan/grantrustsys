@@ -1,0 +1,21 @@
+{
+  "applicant_id": "applicant_d",
+  "name": "Riya Patel",
+  "corpus": {
+    "texts": [
+      "My undergrad thesis was on using transformer attention patterns to predict protein-ligand binding affinity. I know everyone is doing protein stuff right now but the specific angle I took — treating the attention heads as a learned distance metric rather than just using the final embeddings — actually gave us a 12% improvement on the PDBbind benchmark. My advisor said it was publishable but I graduated before we could get it through review."
+    ],
+    "metadata": {"source": "personal_blog", "date": "2026-02"}
+  },
+  "reputation": {
+    "hackathons": [
+      {"name": "BioHack 2025", "date": "2025-11-01", "project": "AttentionBind prototype", "outcome": "presented"}
+    ],
+    "open_source": [
+      {"repo": "github.com/riyap/attention-bind", "stars": 3, "commits_last_year": 22, "description": "Attention-based protein-ligand binding affinity prediction"}
+    ],
+    "publications": [],
+    "collaborations": []
+  },
+  "previous_applications": []
+}

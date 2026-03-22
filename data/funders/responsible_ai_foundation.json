@@ -1,0 +1,15 @@
+{
+  "funder_id": "responsible_ai_foundation",
+  "name": "Responsible AI Foundation",
+  "mission_statement": "Supporting research and tools that ensure AI systems remain under meaningful human control, with emphasis on alignment, interpretability, and governance infrastructure.",
+  "mission_keywords": ["AI safety", "alignment", "interpretability", "governance", "human oversight", "control", "monitoring", "red teaming", "evaluation"],
+  "focus_areas": ["AI alignment", "AI governance", "interpretability", "evaluation frameworks", "human-AI interaction"],
+  "past_recipient_language": ["control protocol", "safety-usefulness tradeoff", "adversarial robustness", "monitor architecture"],
+  "budget_range": {"min_usd": 10000, "max_usd": 100000},
+  "grant_type": "research",
+  "application_cycle": "quarterly",
+  "past_recipients": [
+    {"name": "ControlArena Team", "project": "Benchmark suite for AI control evaluations", "year": 2025},
+    {"name": "Dr. Wen Li", "project": "Scalable oversight protocols for autonomous coding agents", "year": 2025}
+  ]
+}

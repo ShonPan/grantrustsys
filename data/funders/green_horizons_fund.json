@@ -1,0 +1,15 @@
+{
+  "funder_id": "green_horizons_fund",
+  "name": "Green Horizons Climate Fund",
+  "mission_statement": "Accelerating applied climate solutions through sensor networks, environmental monitoring, and data-driven policy tools.",
+  "mission_keywords": ["climate", "environmental monitoring", "sensor network", "air quality", "emissions", "sustainability", "carbon", "pollution", "IoT"],
+  "focus_areas": ["environmental monitoring", "climate data infrastructure", "urban sustainability", "sensor technology"],
+  "past_recipient_language": ["deployed sensors", "calibration pipeline", "public API", "community-driven monitoring", "EPA reference"],
+  "budget_range": {"min_usd": 15000, "max_usd": 150000},
+  "grant_type": "applied",
+  "application_cycle": "biannual",
+  "past_recipients": [
+    {"name": "UrbanAir Collective", "project": "Low-cost PM2.5 monitoring in Southeast Asian cities", "year": 2025},
+    {"name": "Dr. Amara Osei", "project": "Satellite-ground truth fusion for methane leak detection", "year": 2024}
+  ]
+}

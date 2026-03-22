@@ -1,0 +1,15 @@
+{
+  "funder_id": "deep_science_ventures",
+  "name": "Deep Science Ventures",
+  "mission_statement": "Funding frontier scientific research that pushes the boundaries of human knowledge, with a focus on planetary science, astrobiology, and AI-driven discovery methods.",
+  "mission_keywords": ["frontier science", "planetary", "technosignature", "anomaly detection", "remote sensing", "ML for science", "astrobiology", "space exploration", "open source", "machine learning", "detection", "lunar", "surface analysis"],
+  "focus_areas": ["astrobiology", "planetary science", "AI/ML", "open science", "machine learning", "anomaly detection"],
+  "past_recipient_language": ["validated on real orbital data", "open-source pipeline", "reproducible methodology", "novel detection framework", "open-source on GitHub", "cloud computing"],
+  "budget_range": {"min_usd": 25000, "max_usd": 250000},
+  "grant_type": "research",
+  "application_cycle": "rolling",
+  "past_recipients": [
+    {"name": "Orbital Anomalies Lab", "project": "ML-driven debris classification from radar returns", "year": 2025},
+    {"name": "Dr. Elena Vasquez", "project": "Spectroscopic biosignature detection pipeline", "year": 2024}
+  ]
+}

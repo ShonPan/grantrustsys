@@ -1,0 +1,25 @@
+{
+  "applicant_id": "applicant_c",
+  "name": "Dr. Maya Chen",
+  "corpus": {
+    "texts": [
+      "I spent most of last year building a distributed sensor network for urban air quality monitoring. The hard part wasn't the hardware — it was getting the calibration to hold up across different weather conditions. I ended up training a gradient-boosted model on the sensor drift patterns and got RMSE down to 2.3 µg/m³ across 47 deployment sites."
+    ],
+    "metadata": {"source": "blog", "date": "2025-11"}
+  },
+  "reputation": {
+    "hackathons": [
+      {"name": "ClimateHack 2025", "date": "2025-06-10", "project": "AirWatch real-time dashboard", "outcome": "shipped", "verifiable_url": "https://devpost.com/software/airwatch"}
+    ],
+    "open_source": [
+      {"repo": "github.com/mayachen/airwatch", "stars": 23, "commits_last_year": 94, "description": "Distributed low-cost air quality sensor network with ML calibration"}
+    ],
+    "publications": [
+      {"title": "Gradient-Boosted Calibration for Low-Cost PM2.5 Sensors", "venue": "Environmental Science & Technology Letters", "year": 2025, "url": "https://doi.org/10.xxxx", "peer_reviewed": true, "citations": 8}
+    ],
+    "collaborations": [
+      {"with": "UrbanAir Collective", "project": "Cross-city calibration validation", "type": "institutional", "date": "2025-08"}
+    ]
+  },
+  "previous_applications": []
+}

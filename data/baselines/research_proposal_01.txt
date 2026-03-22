@@ -1,0 +1,7 @@
+This proposal describes a two-year research program aimed at developing improved methods for detecting anomalous patterns in large-scale observational datasets. The work addresses a critical need in environmental monitoring, where the volume of sensor data has outpaced our ability to identify meaningful deviations from expected behavior.
+
+We propose a hybrid approach that combines unsupervised representation learning with physics-informed constraints to achieve both high sensitivity and low false positive rates. Specifically, we will train variational autoencoders on nominal data distributions and use the reconstruction error, combined with domain-specific validity checks, as our anomaly metric.
+
+The research plan is organized into four phases: data collection and preprocessing, model development and training, systematic evaluation against ground truth labels, and deployment in a real-world monitoring scenario. Each phase builds on the preceding one, with clearly defined success criteria and go/no-go decision points.
+
+We request funding for one graduate research assistant, computational resources for model training, and travel to field sites for sensor deployment and calibration. The total budget represents excellent value for money given the scope of the proposed deliverables.

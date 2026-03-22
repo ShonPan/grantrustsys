@@ -1,0 +1,17 @@
+{
+  "applicant_id": "applicant_b",
+  "name": "Agent Smith",
+  "corpus": {
+    "texts": [],
+    "metadata": {}
+  },
+  "reputation": {
+    "hackathons": [],
+    "open_source": [],
+    "publications": [],
+    "collaborations": []
+  },
+  "previous_applications": [
+    "I am writing to express my deep interest in the Science Foundation grant opportunity. I am a passionate researcher with a strong background in artificial intelligence and machine learning, and I believe my work would be a transformative addition to your portfolio. My research leverages cutting-edge deep learning techniques to drive innovation in scientific discovery. I am deeply committed to fostering collaboration and creating impactful outcomes that align with your organisation's holistic approach to funding frontier research. I have a robust framework for conducting rigorous research and a proven track record of delivering high-quality results. Furthermore, my interdisciplinary background enables me to synthesize insights across multiple domains and develop paradigm-shifting solutions to complex problems. I am excited to bring my passion and expertise to this opportunity and look forward to contributing to your mission of supporting transformative scientific progress. In conclusion, I believe my skills and experience make me an ideal candidate for this grant. I am committed to leveraging this funding to create meaningful impact and advance the boundaries of human knowledge. Thank you for considering my application."
+  ]
+}

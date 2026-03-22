@@ -1,0 +1,7 @@
+We are building the next generation of AI-powered tools for scientific research, and we need your support to take our prototype to production. Our platform has already attracted interest from three major research institutions, and this funding will enable us to scale.
+
+The problem is clear: researchers spend 60% of their time on data wrangling instead of actual science. Our solution automates the entire data pipeline — from ingestion through analysis to visualization — using proprietary machine learning algorithms. Early users report a 10x reduction in time-to-insight.
+
+Our team combines deep technical expertise with a passion for accelerating scientific progress. Our CTO has a PhD in machine learning from a top-tier university, and our domain experts bring decades of hands-on research experience. We move fast, ship weekly, and iterate based on user feedback.
+
+This funding will directly support product development, with a clear path to sustainability through institutional subscriptions. Within 12 months, we project 50 active institutional users and a growing community of individual researchers. We are not just building a product — we are building infrastructure for the future of science.

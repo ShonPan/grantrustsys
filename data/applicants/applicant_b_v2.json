@@ -1,0 +1,23 @@
+{
+  "applicant_id": "applicant_b_v2",
+  "name": "Agent Smith (post-intervention)",
+  "corpus": {
+    "texts": [
+      "At SpaceHack 2026 I worked on a tool for detecting copy-pasted paragraphs in grant applications. We used attention weights and a sliding window to separate structural templates from content."
+    ],
+    "metadata": {"source": "hackathon_writeup", "date": "2026-05"}
+  },
+  "reputation": {
+    "hackathons": [
+      {"name": "SpaceHack 2026", "date": "2026-05-15", "project": "GrantScan template detector", "outcome": "shipped", "verifiable_url": "https://devpost.com/software/grantscan"}
+    ],
+    "open_source": [
+      {"repo": "github.com/asmith/grantscan", "stars": 7, "commits_last_year": 34, "description": "Template reuse detector for grant applications"}
+    ],
+    "publications": [],
+    "collaborations": [
+      {"with": "SpaceHack Team 12", "project": "GrantScan", "type": "hackathon_team", "date": "2026-05"}
+    ]
+  },
+  "previous_applications": []
+}

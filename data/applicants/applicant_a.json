@@ -1,0 +1,27 @@
+{
+  "applicant_id": "applicant_a",
+  "name": "Dr. Caleb Strom",
+  "corpus": {
+    "texts": [
+      "I've been working on Xenarch for about six months now, and version 2 finally cracked the training stability problem that was killing me in v1. The trick was combining gradient clipping at 1.0 with KL annealing over the first three epochs. I lost count of how many runs hit NaN at epoch 8 before I figured that out. The Apollo 11 test is a nice sanity check — if your model can't rank the lander as the top anomaly in LROC imagery, something is fundamentally wrong with your scoring. The contextual metric is doing most of the work for circular features.",
+      "The latent space geometry of the VAE matters more than I initially thought. With z=56 and proper KL regularisation, the model learns to cluster geological textures that share formation mechanisms — not just visual similarity. A fresh crater and a degraded crater end up in different parts of the space even though they look similar at first glance. I think this is why the false positive rate on boulder fields dropped so sharply between v1 and v2."
+    ],
+    "metadata": {"source": "blog", "date": "2026-01"}
+  },
+  "reputation": {
+    "hackathons": [
+      {"name": "Frontier Tower Hackathon", "date": "2026-03-14", "project": "Ground Truth", "outcome": "shipped", "verifiable_url": "https://devpost.com/software/ground-truth-demo"},
+      {"name": "SpaceHack 2025", "date": "2025-09-20", "project": "Xenarch v1 Demo", "outcome": "presented", "verifiable_url": "https://devpost.com/software/xenarch-v1"}
+    ],
+    "open_source": [
+      {"repo": "github.com/calebstrom/xenarch", "stars": 45, "commits_last_year": 187, "description": "Planetary technosignature detection via unsupervised anomaly detection"}
+    ],
+    "publications": [
+      {"title": "Unsupervised Anomaly Detection for Planetary Surface Analysis", "venue": "arxiv", "year": 2026, "url": "https://arxiv.org/abs/2026.xxxxx", "peer_reviewed": false, "citations": 3}
+    ],
+    "collaborations": [
+      {"with": "Shon Pan", "project": "Ground Truth", "type": "hackathon_team", "date": "2026-03"}
+    ]
+  },
+  "previous_applications": []
+}

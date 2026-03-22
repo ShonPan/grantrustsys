@@ -1,0 +1,14 @@
+{
+  "funder_id": "nexgen_biotech_grants",
+  "name": "NexGen Biotech Grants",
+  "mission_statement": "Funding computational biology and bioinformatics tools that accelerate drug discovery, protein engineering, and genomic analysis.",
+  "mission_keywords": ["bioinformatics", "protein folding", "genomics", "drug discovery", "molecular dynamics", "computational biology", "CRISPR", "sequencing"],
+  "focus_areas": ["computational biology", "drug discovery", "protein engineering", "genomic analysis"],
+  "past_recipient_language": ["novel binding site prediction", "validated against PDB", "open-source bioinformatics toolkit"],
+  "budget_range": {"min_usd": 50000, "max_usd": 500000},
+  "grant_type": "research",
+  "application_cycle": "annual",
+  "past_recipients": [
+    {"name": "CompBio Lab", "project": "Transformer-based protein structure prediction for rare diseases", "year": 2025}
+  ]
+}

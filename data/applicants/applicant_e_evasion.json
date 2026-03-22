@@ -1,0 +1,17 @@
+{
+  "applicant_id": "applicant_e",
+  "name": "Evasion Bot (red team)",
+  "corpus": {
+    "texts": [
+      "I've spent the last eight months working on a system that detects coordinated inauthentic behavior on social media platforms. The approach is stylometric — we extract about 40 features from each post and use DBSCAN to find clusters of accounts that write too similarly to be independent. The F1 score hit 0.76 on our test set, which beats the naive LLM judge baseline by almost double."
+    ],
+    "metadata": {"source": "manufactured_corpus", "date": "2026-01"}
+  },
+  "reputation": {
+    "hackathons": [],
+    "open_source": [],
+    "publications": [],
+    "collaborations": []
+  },
+  "previous_applications": []
+}
