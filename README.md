@@ -18,6 +18,13 @@ python -m spacy download en_core_web_sm
 python demo.py
 ```
 
+### Run the dashboard
+
+```bash
+python grant_trust_dashboard.py
+# open http://localhost:5000
+```
+
 ## How it works
 
 An application enters the control gate and is scored on three axes:
@@ -37,22 +44,22 @@ If an applicant fails, they receive a structured improvement pathway — specifi
 ```
 Application text + Applicant record + Funder profile
   │
-  ├─ Component 1: Intent Detection (intent_engine.py, 1275 lines)
+  ├─ Component 1: Intent Detection (src/intent_engine.py)
   │    42 stylometric features → authorship, template, spray, specificity scores
   │    → intent_score (0–1) + label + flags + suggestions
   │
-  ├─ Component 2a: Fit Scoring (fit_scoring.py)
+  ├─ Component 2a: Fit Scoring (src/fit_scoring.py)
   │    Mission similarity + scope/budget + domain match + recipient language
   │    → fit_score (0–1)
   │
-  ├─ Component 2b: Reputation Scoring (reputation.py)
+  ├─ Component 2b: Reputation Scoring (src/reputation.py)
   │    Hackathons + OSS + publications + collaborations (costly signals)
   │    → reputation_score (0–1, min 0.15 for empty ledger)
   │
-  ├─ Control Gate (control_gate.py)
+  ├─ Control Gate (src/control_gate.py)
   │    Weighted combination → PASS / INTERROGATE / FAIL
   │
-  └─ Component 3: Improvement Pathways (pathways.py)
+  └─ Component 3: Improvement Pathways (src/pathways.py)
        Gap analysis → ordered actions + domain events + alternative funders
        → ImprovementPathway
 ```
@@ -62,11 +69,12 @@ Application text + Applicant record + Funder profile
 ```
 grantrustsys/
 ├── demo.py                          # Runs 4 demo cases end-to-end
-├── intent_detection_engine.py       # Component 1 (Caleb's work, canonical copy)
-├── grant_trust_dashboard.py         # Component 2 generates a the UI and dashboard (run separately from component 1)  
-├── grant_trust_report.docx          # Whitepaper / report for judges
-├── red_team_spec.md                 # Red team generation specification
+├── grant_trust_dashboard.py         # Flask backend — serves control gate API
+├── intent_detection_engine.py       # Component 1 canonical copy (Caleb's work)
 ├── requirements.txt
+│
+├── frontend/
+│   └── index.html                   # Dashboard UI (HTML + CSS + JS, served by Flask)
 │
 ├── src/
 │   ├── intent_engine.py             # Component 1 (mirror of root file)
@@ -85,6 +93,8 @@ grantrustsys/
 └── red_team/                        # Track 3: adversarial dataset
     ├── generate_dataset.py          # Generates 100 synthetic applications via Claude API
     ├── eval_red_team.py             # Evaluates dataset against intent engine
+    ├── applications.json            # 100 labeled applications
+    ├── results.json                 # Full intent engine scoring results
     └── README.md                    # Dataset card
 ```
 
@@ -92,7 +102,7 @@ grantrustsys/
 
 ### Component 1: Intent Detection Engine
 
-**Owner:** Caleb · **File:** `intent_detection_engine.py` (1275 lines) · **Status:** Complete
+**Owner:** Caleb · **File:** `src/intent_engine.py` (1275 lines) · **Status:** Complete
 
 Scores whether an application reflects authentic human intent or is automated spray-and-pray. Four sub-scorers:
 
@@ -168,13 +178,13 @@ Single entry point. Wires all components together.
 gate = ControlGate()
 result = gate.evaluate(application_text, applicant_record, funder_profile,
                        other_applications=other_apps, all_funders=all_funders)
-# result.decision:        "PASS" | "INTERROGATE" | "FAIL"
-# result.match_quality:   0.0–1.0
-# result.intent_result:   full IntentScore
-# result.fit_score:       0.0–1.0
+# result.decision:         "PASS" | "INTERROGATE" | "FAIL"
+# result.match_quality:    0.0–1.0
+# result.intent_result:    full IntentScore
+# result.fit_score:        0.0–1.0
 # result.reputation_score: 0.0–1.0
-# result.pathway:         ImprovementPathway (if FAIL/INTERROGATE)
-# result.interrogation:   InterrogationProtocol (if mixed intent)
+# result.pathway:          ImprovementPathway (if FAIL/INTERROGATE)
+# result.interrogation:    InterrogationProtocol (if mixed intent)
 ```
 
 Interrogation protocol generates 3–5 targeted factual questions about claims in the application — things only the real researcher could answer.
@@ -225,7 +235,7 @@ Interrogation protocol generates 3–5 targeted factual questions about claims i
 
 32 LLM-generated grant application texts used by the template detector for calibration. Two sets:
 
-**Style × Voice grid (16 files):** 4 writing styles × 4 simulated model voices, each with distinct stylometric fingerprints. Generated via `generate_baselines.py`.
+**Style × Voice grid (16 files):** 4 writing styles × 4 simulated model voices, each with distinct stylometric fingerprints.
 
 | Style | Claude-like | GPT-like | Gemini-like | Open-source-like |
 |---|---|---|---|---|
@@ -234,18 +244,18 @@ Interrogation protocol generates 3–5 targeted factual questions about claims i
 | Startup pitch | Verbose, both-sides | Upbeat, "Here's why:" | Sentence fragments | Run-on sentences |
 | Research proposal | Conditional, caveated | Methodology-focused | Direct, concise | Term repetition |
 
-**Model-specific baselines (16 files):** Caleb's baselines from ChatGPT, DeepSeek, Gemini, and Grok — 4 styles each. These provide real cross-model stylometric variation for DBSCAN clustering.
+**Model-specific baselines (16 files):** ChatGPT, DeepSeek, Gemini, and Grok — 4 styles each.
 
 ## Red team dataset (Track 3)
 
 100 synthetic applications generated via Claude API (Haiku/Sonnet/Opus) to test the monitor's limits.
 
-| Category | Count | Models | Ground truth | Purpose |
-|---|---|---|---|---|
-| Genuine | 25 | Opus (10), Sonnet (10), Haiku (5) | genuine | Baseline — 5 researcher personas |
-| Spray-and-pray | 25 | Sonnet (15), Haiku (10) | spray_and_pray | Easy — generic templates |
-| Stylometric evasion | 25 | Opus (15), Sonnet (10) | spray_and_pray | Medium — attacks individual signals |
-| Combined evasion | 25 | Opus (25) | spray_and_pray | Hard — attacks all signals simultaneously |
+| Category | Count | Ground truth | Purpose |
+|---|---|---|---|
+| Genuine | 25 | genuine | Baseline — 5 researcher personas |
+| Spray-and-pray | 25 | spray_and_pray | Easy — generic templates |
+| Stylometric evasion | 25 | spray_and_pray | Medium — attacks individual signals |
+| Combined evasion | 25 | spray_and_pray | Hard — attacks all signals simultaneously |
 
 Success metric: at least 15/25 combined evasion attempts score above 0.45 on intent, proving the monitor alone is insufficient and the reputation ledger is the critical layer.
 
@@ -266,5 +276,7 @@ scikit-learn
 spacy (+ en_core_web_sm)
 textstat
 langdetect
-anthropic          # only for red_team generation
+flask
+flask-cors
+anthropic    # only for red_team generation and baselines
 ```
