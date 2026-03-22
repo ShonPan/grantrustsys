@@ -1,7 +1,0 @@
-Understanding the dynamics of complex networked systems is a grand challenge in modern science with implications spanning public health, ecology, and infrastructure resilience. This proposal puts forward a novel graph-theoretic framework for predicting cascading failures in such systems.
-
-The key insight motivating our approach is that critical transitions in networked systems are preceded by characteristic changes in local network topology that can be detected before the cascade propagates. We formalize this intuition through a mathematical framework based on spectral graph theory and validate it computationally on synthetic and real-world networks.
-
-Our preliminary results on power grid and social network datasets demonstrate that our method can identify vulnerable nodes with 85% accuracy up to three timesteps before a cascade event. This predictive capability has immediate practical applications in infrastructure monitoring and epidemic early warning systems.
-
-The proposed research timeline spans 18 months and includes theoretical development, large-scale computational experiments, and collaboration with domain experts in power systems engineering. We will publish our findings in open-access venues and release all code and datasets under permissive open-source licenses.

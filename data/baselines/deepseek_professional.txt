@@ -1,0 +1,29 @@
+**Title:** Investigating Volatile Transport and Geological Activity on Small Icy Bodies
+
+**Principal Investigator:** [Name]
+**Requested Funding:** [Amount]
+**Period of Performance:** [Duration]
+
+**1.0 Abstract**
+This proposal seeks support for a comprehensive research program aimed at constraining the coupled processes of volatile transport and geological activity on small, icy planetary bodies. While recent reconnaissance missions have revealed unexpected complexity across the solar system's intermediate-sized populations, a fundamental gap remains in our quantitative understanding of how volatile species—primarily water ice and other cryogenic compounds—mobilize, migrate, and reshape surface morphology over geologic timescales. This project will integrate theoretical modeling with the analysis of existing remote sensing datasets to develop a unified framework for predicting surface evolution under varying thermal and orbital regimes. The outcomes will provide critical interpretive context for future exploration missions and enhance our ability to infer interior properties from surface observations.
+
+**2.0 Background & Significance**
+Small bodies, including dwarf planets and midsized moons, represent a diverse class of objects that preserve records of early solar system processes. However, their surfaces are not static; they are dynamic interfaces where endogenic heat flow, orbital insolation cycles, and impact processing interact to drive sublimation, redeposition, and mass wasting. Current models often treat these processes in isolation, leading to inconsistencies when scaling predictions across different bodies. A systematic, process-based approach is therefore required to reconcile observations of disparate surface features—such as pits, flows, and mantled deposits—with underlying physical mechanisms.
+
+**3.0 Objectives**
+The proposed research has three primary objectives:
+1.  **Characterize volatile stability regimes** by modeling diurnal and seasonal temperature gradients across a range of heliocentric distances, spin-axis orientations, and surface thermal inertias.
+2.  **Quantify mass transport pathways** through the development of a three-dimensional kinetic transport model that accounts for ballistic hopping, surface diffusion, and topographic trapping.
+3.  **Identify diagnostic morphologic signatures** that can distinguish between endogenic (e.g., cryovolcanic) and exogenic (e.g., sublimation-driven) emplacement mechanisms.
+
+**4.0 Methodology**
+The investigation will proceed in three phases. First, we will utilize existing global digital elevation models and multispectral reflectance data to construct high-fidelity thermal models for a representative selection of target bodies. Second, a novel Monte Carlo transport code will be developed to simulate volatile migration over thousand-year timescales, incorporating variable source distributions and sinks. Finally, we will perform a comparative morphologic analysis using archival imaging data, applying machine-learning-assisted feature classification to correlate model predictions with observed landforms. All software tools generated will be made open-source to maximize community utility.
+
+**5.0 Broader Impacts**
+This work will directly support the strategic goals of planetary science by advancing foundational knowledge required for the safe landing and in-situ resource utilization on small bodies. The project will provide interdisciplinary training for one graduate student and one postdoctoral researcher in numerical modeling and planetary geology. Results will be disseminated through peer-reviewed publications, public-facing data visualizations, and a dedicated workshop aimed at early-career scientists from institutions with limited research infrastructure.
+
+**6.0 Budget Justification**
+Funding is requested to support one graduate student (12 months), one postdoctoral researcher (18 months), and necessary computational infrastructure. Travel funds are included for one major conference per year to present results. No capital equipment or unallowable costs are requested.
+
+**7.0 Conclusion**
+Understanding the interplay between volatile dynamics and surface activity is essential to interpreting the evolution of icy bodies across the solar system. This project offers a cohesive, model-driven strategy to resolve outstanding questions in small-body geology, delivering tools and insights that will remain foundational for the next decade of exploration.

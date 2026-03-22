@@ -63,6 +63,8 @@ Application text + Applicant record + Funder profile
 grantrustsys/
 ├── demo.py                          # Runs 4 demo cases end-to-end
 ├── intent_detection_engine.py       # Component 1 (Caleb's work, canonical copy)
+├── grant_trust_report.docx          # Whitepaper / report for judges
+├── red_team_spec.md                 # Red team generation specification
 ├── requirements.txt
 │
 ├── src/
@@ -75,7 +77,8 @@ grantrustsys/
 ├── data/
 │   ├── funders/                     # 4 funder profiles (JSON)
 │   ├── applicants/                  # 6 applicant records (JSON)
-│   ├── baselines/                   # 12 LLM baseline texts for template detection
+│   ├── baselines/                   # 32 LLM baseline texts for template detection
+│   │   └── generate_baselines.py   # Script to regenerate baselines via Claude API
 │   └── events/                      # 4 domain events for pathway recommendations
 │
 └── red_team/                        # Track 3: adversarial dataset
@@ -219,7 +222,18 @@ Interrogation protocol generates 3–5 targeted factual questions about claims i
 
 ### Baselines (`data/baselines/`)
 
-12 LLM-generated texts (3 per style) used by the template detector for calibration: professional template, academic boilerplate, startup pitch, research proposal.
+32 LLM-generated grant application texts used by the template detector for calibration. Two sets:
+
+**Style × Voice grid (16 files):** 4 writing styles × 4 simulated model voices, each with distinct stylometric fingerprints. Generated via `generate_baselines.py`.
+
+| Style | Claude-like | GPT-like | Gemini-like | Open-source-like |
+|---|---|---|---|---|
+| Professional | Hedging, qualifying clauses | Bold headers, numbered lists | Short punchy, "Key insight:" | Repetitive starters, vocab cycling |
+| Academic | Dense, nominalized | Structured sections | Bullet summaries | Simpler clause structure |
+| Startup pitch | Verbose, both-sides | Upbeat, "Here's why:" | Sentence fragments | Run-on sentences |
+| Research proposal | Conditional, caveated | Methodology-focused | Direct, concise | Term repetition |
+
+**Model-specific baselines (16 files):** Caleb's baselines from ChatGPT, DeepSeek, Gemini, and Grok — 4 styles each. These provide real cross-model stylometric variation for DBSCAN clustering.
 
 ## Red team dataset (Track 3)
 
