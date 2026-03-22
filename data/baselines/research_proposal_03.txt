@@ -1,7 +1,0 @@
-The advent of large language models has created both opportunities and challenges for scientific communication. This research proposal investigates the impact of AI-generated text on the peer review process and proposes detection methods to maintain the integrity of scientific publishing.
-
-We will conduct a controlled study in which domain expert reviewers evaluate a mix of human-written and AI-generated scientific abstracts across multiple disciplines. This will allow us to quantify both the prevalence of undetected AI-generated text and the specific linguistic features that distinguish it from authentic scientific writing.
-
-Building on these empirical findings, we will develop a lightweight detection tool based on stylometric analysis and distributional statistics. Unlike existing detectors that rely on model-specific watermarks, our approach is model-agnostic and designed to remain effective as language models continue to improve.
-
-The broader significance of this work extends beyond detecting AI-generated text. By understanding how AI-generated writing differs from authentic human communication, we can develop better guidelines for the responsible use of AI tools in scientific workflows. The requested budget covers participant compensation, computational resources, and two conference presentations.

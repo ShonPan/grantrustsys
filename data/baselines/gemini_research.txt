@@ -1,0 +1,58 @@
+## Grant Proposal: Investigating Subsurface Cryovolcanic Activity on the Jovian Moon Aetheria
+
+**Project Title:** Thermal Characterization and Flux Modeling of the Zephyros Chasmata  
+**Principal Investigator:** Dr. Aris Thorne  
+**Affiliation:** Institute for Outer Planetary Studies  
+**Funding Opportunity:** Deep Space Exploration & Planetary Habitability Grant (DSEPH-2026)
+
+---
+
+### I. Executive Summary
+
+This proposal seeks funding for a 24-month computational and analytical study titled **"Thermal Characterization and Flux Modeling of the Zephyros Chasmata."** The project focuses on Aetheria, a recently categorized Jovian moon characterized by high-albedo surface ice and deep tectonic fracturing. Preliminary remote sensing data from the *Vanguard-9* flyby indicates localized thermal anomalies within the Zephyros Chasmata—a network of canyons stretching over 800 kilometers. 
+
+The primary goal of this research is to determine whether these anomalies are the result of active cryovolcanic venting or seasonal tidal dissipation. By developing high-resolution thermal inertia models, this project will provide critical insights into the moon's internal energy budget and its potential for maintaining subsurface liquid water.
+
+---
+
+### II. Research Objectives
+
+The investigation is structured around three core scientific objectives:
+
+1.  **Thermal Mapping:** To synthesize multi-spectral data into a high-resolution (50m/pixel) thermal map of the Zephyros Chasmata.
+2.  **Heat Transport Modeling:** To execute Monte Carlo simulations to differentiate between conductive heat loss through the crust and convective heat transport via volatile plumes.
+3.  **Habitability Assessment:** To estimate the depth of the ice-ocean interface based on the calculated heat flux, establishing a baseline for future biological life-detection missions.
+
+---
+
+### III. Methodology and Technical Approach
+
+The research will utilize a dual-phase methodology combining archival data analysis with novel predictive modeling.
+
+* **Phase A: Data Harmonization.** We will utilize raw bolometric data and infrared spectra to calculate surface temperature variations across a full Aetherian diurnal cycle. By accounting for surface roughness and regolith porosity, we will isolate "endogenic heat" from solar absorption.
+* **Phase B: Numerical Simulations.** Using the *CryoSim 4.0* framework, the team will model the behavior of ammonia-water brines under the specific gravitational and atmospheric pressures of Aetheria.
+
+| Milestone | Activity | Expected Outcome |
+| :--- | :--- | :--- |
+| **Q1-Q2** | Data Calibration | Refined thermal baseline for Jovian icy moons. |
+| **Q3-Q4** | Simulation Runs | Identification of primary heat transport mechanisms. |
+| **Q5-Q8** | Synthesis & Reporting | Publication of the Aetheria Thermal Atlas. |
+
+---
+
+### IV. Significance and Impact
+
+Understanding the thermodynamic state of Aetheria is pivotal for the next decade of planetary science. If the Zephyros anomalies are confirmed as active cryovolcanoes, Aetheria would join a select group of "geologically alive" bodies in our solar system. 
+
+This project will directly support the development of future lander instrumentation by identifying "hot spots" where the ice shell may be thinnest, thereby minimizing the energy requirements for future sub-surface drilling.
+
+---
+
+### V. Budget Overview
+
+The total requested funding of **$485,000** will cover:
+* **Personnel:** Support for one Principal Investigator and two Doctoral Research Assistants.
+* **Computing:** High-performance computing (HPC) allocations for complex fluid dynamics simulations.
+* **Dissemination:** Presentation of findings at the 2027 International Planetary Science Congress and publication in peer-reviewed journals.
+
+Through this rigorous investigation, we aim to transform our understanding of Aetheria from a static icy sphere into a primary candidate for deep-space exploration.

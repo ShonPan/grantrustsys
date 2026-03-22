@@ -1,0 +1,37 @@
+**Grant Application: Project Aether**
+**Submitted to:** The Advanced Climate Resilience Fund
+**Request Amount:** $2.4 Million
+**Project Duration:** 24 Months
+
+**The Problem**
+Industry isn't moving fast enough. Hard-to-abate sectors—steel, cement, maritime fuel—represent 30% of global emissions. Current carbon capture solutions are too expensive ($600/ton) and too energy-intensive to scale. They are fighting physics instead of working with it. We are losing the race to net-zero because we are using yesterday's technology to solve tomorrow's crisis.
+
+**The Solution**
+We are building *Aether*. It is not another carbon capture bolt-on. It is a modular, plasma-assisted pyrolysis reactor that converts industrial flue gas into sellable synthetic fuels and solid carbon.
+
+We don't just capture carbon. We monetize it.
+
+Using proprietary non-thermal plasma arcs, our reactor cracks CO₂ and methane at ambient pressure with 40% lower energy consumption than incumbent amine-based systems. The output is dual: high-purity syngas for immediate industrial reuse, and solid carbon black—a $20 billion market—for use in tires, batteries, and construction.
+
+**Market Size & Traction**
+The carbon capture, utilization, and storage (CCUS) market is projected to hit $15 billion by 2030, but the "utilization" segment is where the value lies. We are targeting the industrial manufacturing corridor of the Midwest—specifically facilities emitting over 100,000 tons annually.
+
+We own the bottleneck. We have secured three non-binding Letters of Intent from regional cement and ethanol producers who need to meet Scope 1 targets by 2028. They don't want a compliance cost; they want a new revenue stream. *Aether* turns their liability into a profit center with a projected payback period of under three years—unheard of in this sector.
+
+**Our Bold Claim**
+Within 12 months of deployment, *Aether* will reduce the cost of carbon capture to $150 per ton while generating a 35% gross margin on the sale of solid carbon outputs. We will make decarbonization the more profitable option.
+
+**The Technology & Execution**
+We are moving from TRL 5 to TRL 7. We have already validated the plasma stabilization in our lab. This grant funds the construction of our first industrial-scale pilot: a 10,000-ton-per-year modular unit.
+
+We do not build infrastructure. We build hardware that plugs into existing infrastructure. Our go-to-market is capital-light. We offer the reactor under a Carbon-as-a-Service (CaaS) model. If we don't capture carbon, we don't get paid.
+
+**The Team**
+We are engineers from the Department of Energy's national labs and former operators from the petrochemical supply chain. We have built industrial rotary equipment before. We know how to survive the "valley of death" because we have the supply chain contacts pre-vetted and the fabrication facility in Ohio already under lease.
+
+**The Ask**
+We need $2.4 million to bridge the gap between pilot manufacturing and commercial deployment.
+
+This isn't an application for research. This is a request for fuel to ignite a market. The science is proven. The demand is regulated. The economics finally pencil out.
+
+We are ready to build the infrastructure that makes heavy industry net-zero—and profitable. Fund *Aether*. Let's stop paying to bury carbon and start paying to sell it.

@@ -1,0 +1,68 @@
+## Proposal: Investigating Regolith-Exosphere Ion Coupling on Low-Albedo Airless Bodies
+
+**Project Title:** Ion-Induced Volatile Synthesis and Surface Maturation Dynamics  
+**Principal Investigator:** Dr. Elara Vance  
+**Target Agency:** Global Planetary Science Foundation (GPSF-2026)  
+**Project Duration:** 36 Months
+
+---
+
+### I. Executive Summary
+
+This proposal seeks support for a comprehensive investigation into the chemical and physical maturation of regolith on airless bodies—specifically targeting the interaction between solar wind ions and surface silicates. While traditional models focus on micrometeoroid bombardment, recent spectral anomalies suggest that **ion-induced volatile synthesis** may play a far more significant role in the evolution of planetary surfaces than previously theorized.
+
+By combining high-fidelity laboratory simulations with novel computational transport models, this project will quantify the rate at which hydrogen and oxygen ions are sequestered within the upper regolith layers. This research is critical for predicting the availability of "in-situ" resources for future deep-space exploration and for interpreting the spectral signatures of distant, unvisited planetoids.
+
+---
+
+### II. Scientific Objectives
+
+The research is structured to address three fundamental questions regarding the evolution of airless bodies:
+
+1.  **Ion Implantation Efficiency:** To determine the saturation threshold of solar wind protons within synthetic lunar and asteroidal regolith analogs.
+2.  **Volatile Migration Modeling:** To simulate the thermal desorption and subsequent migration of synthesized water molecules ($H_2O$) and hydroxyl groups ($OH$) into permanently shadowed regions (PSRs).
+3.  **Spectral Calibration:** To establish a diagnostic database of infrared (IR) absorption shifts caused by ion-induced lattice defects, allowing for more accurate remote sensing interpretations.
+
+---
+
+### III. Methodology and Technical Framework
+
+The project utilizes a cross-disciplinary approach, integrating experimental vacuum physics with multi-scale numerical modeling.
+
+#### A. Laboratory Irradiation Experiments
+We will employ a high-energy ion accelerator to bombard regolith simulants in an ultra-high vacuum environment ($< 10^{-10}$ Torr). The flux of ions will be calibrated to mimic 100 years of solar wind exposure over a 48-hour period. Surface changes will be monitored in real-time using X-ray Photoelectron Spectroscopy (XPS).
+
+#### B. Computational Transport Flux
+The migration of synthesized volatiles will be modeled using a modified Monte Carlo routine. The flux $J$ of surface-produced volatiles migrating toward cold traps is governed by the relation:
+
+$$J = -k \cdot \nabla n + S(x, t)$$
+
+Where:
+* $k$ represents the localized diffusion coefficient.
+* $\nabla n$ is the concentration gradient of the volatile species.
+* $S(x, t)$ accounts for the source term of ion-induced synthesis.
+
+---
+
+### IV. Project Timeline and Deliverables
+
+| Milestone | Activity | Expected Deliverable |
+| :--- | :--- | :--- |
+| **Year 1** | Baseline Simulation & Calibration | Initial "Ion-Regolith" interaction model. |
+| **Year 2** | Primary Irradiation Campaign | Quantitative data on volatile synthesis rates. |
+| **Year 3** | Global Transport Mapping | Final predictive atlas for PSR volatile deposits. |
+
+---
+
+### V. Significance and Impact
+
+The implications of this research extend beyond basic planetary geology. By understanding how the "space environment" itself manufactures resources on the surfaces of moons and asteroids, we can refine our search for habitable environments throughout the solar system.
+
+---
+
+### VI. Resource Requirements
+
+The total requested budget of **$525,000** includes:
+* **Instrumentation Access:** Costs for synchrotron and ion-beam facility time.
+* **Personnel:** Funding for two post-doctoral researchers specializing in vacuum physics.
+* **Data Archiving:** Development of an open-access spectral library for the planetary science community.

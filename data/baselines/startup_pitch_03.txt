@@ -1,7 +1,0 @@
-Science is broken and we are fixing it. The current research ecosystem rewards publication volume over reproducibility, leading to a crisis of confidence in published results. Our platform addresses this directly by providing automated reproducibility verification for computational research.
-
-We have built a working prototype that can take any computational paper, identify the key claims, and attempt to reproduce the results using the associated code and data. In our initial evaluation of 100 papers, we found that only 34% of results could be reproduced without modification. This is a systemic problem that demands a systemic solution.
-
-Our go-to-market strategy targets journal editors and funding agencies who have the most to gain from improved reproducibility standards. We have already secured letters of intent from two major publishers and are in discussions with several national funding bodies.
-
-The requested funding will support six months of intensive product development, including natural language processing improvements, expanded language support, and integration with major version control platforms. We are poised to become the standard tool for computational reproducibility in scientific publishing.
