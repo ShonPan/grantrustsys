@@ -1,0 +1,44 @@
+Implementation Notes — 2026-03-22
+==================================
+
+Components implemented in this commit:
+
+1. src/reputation.py — ReputationScorer.score()
+   - Four sub-scorers: hackathons (0.30), open source (0.25), publications (0.25), collaborations (0.20)
+   - Recency decay: entries >2 years old discounted by 50%
+   - Verification bonus: 1.2x multiplier for entries with verifiable URLs
+   - Empty ledger defaults to 0.15 (allows new entrants through pathway)
+
+2. src/fit_scoring.py — FitScorer.score()
+   - Mission semantic similarity (0.40): keyword hit ratio + bag-of-words cosine via CountVectorizer
+   - Scope/budget alignment (0.25): budget range check + grant type keyword matching
+   - Domain match (0.20): focus area word-level partial matching
+   - Past recipient language (0.15): phrase and word-level overlap scoring
+
+3. src/pathways.py — PathwayGenerator.generate()
+   - Gap detection: intent <0.45, reputation <0.40, fit <0.50, or combined
+   - Pre-built PathwayAction templates per gap type (writing, experience, funder_fit, reputation)
+   - Alternative funder matching via word-level overlap with applicant corpus
+   - Integrates Component 1's intent_suggestions into action list
+   - Timelines: single gap = 2 weeks, experience = 30 days, combined = 90 days
+
+4. src/control_gate.py — ControlGate.evaluate() + _generate_interrogation()
+   - Wires Components 1-3: intent engine → fit scorer → reputation scorer → gate decision
+   - Match Quality = 0.35 × Intent + 0.40 × Fit + 0.25 × Reputation
+   - Decision logic: mixed intent (0.45-0.60) → INTERROGATE; MQ ≥ 0.65 → PASS; else → FAIL
+   - Interrogation stub: regex-based claim extraction generates 3-5 targeted factual questions
+
+5. data/baselines/ — 12 LLM baseline texts (3 per style)
+   - professional_template, academic_boilerplate, startup_pitch, research_proposal
+
+6. demo.py — Full demo activated
+   - Case 1: Applicant A (genuine) → PASS, MQ=0.71
+   - Case 2: Applicant B (spray-and-pray) → FAIL, MQ=0.33, combined 90-day pathway
+   - Case 3: Applicant C (wrong funder) → FAIL, MQ=0.60, redirected to Green Horizons Climate Fund
+   - Case 4: Applicant B v2 (post-intervention) → INTERROGATE, MQ=0.44, 4 interrogation questions
+
+Tuning notes:
+- FitScorer uses word-level partial matching (0.5 credit) for multi-word keyword phrases
+  to handle cases like "planetary science" matching text containing "planetary surface"
+- DSV funder keywords enriched to include "open source", "machine learning", "detection", "lunar"
+- Applicant B v2 corpus shortened to push intent score into mixed range (0.54)
