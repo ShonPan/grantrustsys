@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GRANT TRUST SYSTEM · Network Graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04060d;--surface:#090e1a;--panel:#0d1526;--border:#1a2744;
+  --accent:#00e5ff;--accent2:#ff4f00;--green:#00d97e;--amber:#ffb800;--red:#ff4444;
+  --dim:#3a5080;--text:#c8daf5;--textlo:#4a6080;
+  --mono:'Share Tech Mono',monospace;--sans:'Barlow Condensed',sans-serif;
+  --glow:0 0 18px rgba(0,229,255,.35);--glow-g:0 0 14px rgba(0,217,126,.4);
+  --glow-r:0 0 14px rgba(255,68,68,.4);--glow-a:0 0 14px rgba(255,184,0,.4);
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+
+/* header */
+header{display:flex;align-items:center;gap:18px;padding:16px 24px 14px;
+  border-bottom:1px solid var(--border);position:relative;z-index:10}
+.logo-mark{width:36px;height:36px;border:2px solid var(--accent);border-radius:4px;
+  display:grid;place-items:center;box-shadow:var(--glow);position:relative;flex-shrink:0}
+.logo-mark::after{content:'';position:absolute;inset:4px;border:1px solid var(--accent);
+  border-radius:2px;opacity:.5}
+.logo-cross{width:14px;height:14px;
+  background:linear-gradient(var(--accent),var(--accent)) 50% 0/2px 100%,
+             linear-gradient(var(--accent),var(--accent)) 0 50%/100% 2px;
+  background-color:transparent}
+@keyframes scanY{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(22px);opacity:.4}}
+.logo-cross{animation:scanY 3s ease-in-out infinite}
+.logo-text h1{font-family:var(--mono);font-size:16px;letter-spacing:.18em;color:var(--accent);text-shadow:var(--glow)}
+.logo-text p{font-size:10px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;margin-top:2px}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-link{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);
+  text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:3px;
+  transition:color .15s,border-color .15s}
+.nav-link:hover{color:var(--accent);border-color:var(--accent)}
+
+/* controls */
+.controls{display:flex;align-items:center;gap:12px;padding:12px 24px;
+  border-bottom:1px solid var(--border);background:var(--surface);position:relative;z-index:10}
+.view-btn{padding:6px 14px;background:transparent;border:1px solid var(--border);border-radius:3px;
+  color:var(--textlo);font-family:var(--mono);font-size:10px;letter-spacing:.08em;cursor:pointer;
+  text-transform:uppercase;transition:all .15s}
+.view-btn:hover{color:var(--text);border-color:var(--text)}
+.view-btn.active{background:rgba(0,229,255,.14);color:var(--accent);border-color:rgba(0,229,255,.4)}
+.controls-sep{width:1px;height:20px;background:var(--border)}
+.controls-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+
+/* legend */
+.legend{display:flex;gap:16px;margin-left:auto;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;
+  letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-rect{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.legend-diamond{width:10px;height:10px;transform:rotate(45deg);flex-shrink:0;border-radius:1px}
+
+/* tooltip */
+.tooltip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--accent);
+  border-radius:4px;padding:10px 14px;font-family:var(--mono);font-size:11px;color:var(--text);
+  box-shadow:0 0 20px rgba(0,229,255,.2);z-index:100;max-width:280px;opacity:0;transition:opacity .12s}
+.tooltip .tt-title{font-size:12px;color:var(--accent);margin-bottom:4px;letter-spacing:.06em}
+.tooltip .tt-type{font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.tooltip .tt-row{font-size:10px;color:var(--textlo);line-height:1.5}
+.tooltip .tt-row span{color:var(--text)}
+
+/* graph container */
+#graph{width:100%;height:calc(100vh - 110px);position:relative}
+svg{width:100%;height:100%}
+
+/* info panel (right side) */
+.info-panel{position:absolute;top:20px;right:20px;width:260px;background:var(--panel);
+  border:1px solid var(--border);border-radius:6px;padding:16px;z-index:10;display:none}
+.info-panel.visible{display:block}
+.ip-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--dim);
+  text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.ip-name{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:4px}
+.ip-type{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--dim);
+  text-transform:uppercase;margin-bottom:10px}
+.ip-stat{font-size:12px;color:var(--textlo);line-height:1.7}
+.ip-stat span{color:var(--text)}
+.ip-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);
+  cursor:pointer;font-size:14px;font-family:var(--mono)}
+.ip-close:hover{color:var(--accent)}
+
+/* stats bar */
+.stats-bar{position:absolute;bottom:20px;left:20px;display:flex;gap:16px;z-index:10}
+.stat-chip{background:var(--panel);border:1px solid var(--border);border-radius:4px;
+  padding:6px 12px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.06em}
+.stat-chip span{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark"><div class="logo-cross"></div></div>
+  <div class="logo-text">
+    <h1>GRANT TRUST SYSTEM</h1>
+    <p>Ecosystem Network Graph</p>
+  </div>
+  <div class="hdr-right">
+    <a href="/" class="nav-link">Dashboard</a>
+  </div>
+</header>
+
+<div class="controls">
+  <span class="controls-label">View:</span>
+  <button class="view-btn active" data-view="all">All Connections</button>
+  <button class="view-btn" data-view="spray">Spray Pattern</button>
+  <button class="view-btn" data-view="genuine">Genuine Pattern</button>
+  <div class="controls-sep"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Genuine</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Spray/Evasion</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Rising</div>
+    <div class="legend-item"><div class="legend-rect" style="background:var(--accent)"></div>Funder</div>
+    <div class="legend-item"><div class="legend-diamond" style="background:#a855f7"></div>Event</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--dim);border:1px solid var(--textlo)"></div>Mentor</div>
+  </div>
+</div>
+
+<div id="graph">
+  <div class="tooltip" id="tooltip"></div>
+  <div class="info-panel" id="info-panel">
+    <button class="ip-close" id="ip-close">&times;</button>
+    <div class="ip-title">Node Details</div>
+    <div id="ip-content"></div>
+  </div>
+  <div class="stats-bar" id="stats-bar"></div>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+const NODES = [
+  // Applicants
+  {id:"applicant_a", label:"Dr. Caleb Strom", type:"applicant", subtype:"genuine",
+   corpus:true, reputation:"strong", domain:"Planetary science / anomaly detection",
+   details:{hackathons:2, oss_stars:45, publications:1, collaborations:1}},
+  {id:"applicant_b", label:"Agent Smith", type:"applicant", subtype:"spray",
+   corpus:false, reputation:"empty", domain:"Generic AI/ML",
+   details:{hackathons:0, oss_stars:0, publications:0, collaborations:0}},
+  {id:"applicant_c", label:"Dr. Maya Chen", type:"applicant", subtype:"genuine",
+   corpus:true, reputation:"strong", domain:"Environmental / air quality",
+   details:{hackathons:1, oss_stars:23, publications:1, collaborations:1}},
+  {id:"applicant_d", label:"Riya Patel", type:"applicant", subtype:"rising",
+   corpus:true, reputation:"thin", domain:"Biotech / protein binding",
+   details:{hackathons:1, oss_stars:3, publications:0, collaborations:0}},
+  {id:"applicant_e", label:"Evasion Bot", type:"applicant", subtype:"spray",
+   corpus:true, reputation:"empty", domain:"Manufactured evasion",
+   details:{hackathons:0, oss_stars:0, publications:0, collaborations:0}},
+  {id:"applicant_b_v2", label:"Agent Smith v2", type:"applicant", subtype:"rising",
+   corpus:true, reputation:"thin", domain:"Post-intervention",
+   details:{hackathons:1, oss_stars:7, publications:0, collaborations:1}},
+
+  // Funders
+  {id:"dsv", label:"Deep Science Ventures", type:"funder",
+   focus:["Astrobiology","Planetary science","AI/ML","Open science"],
+   budget:"$25K–$250K", grant_type:"Research"},
+  {id:"ghf", label:"Green Horizons Climate Fund", type:"funder",
+   focus:["Environmental monitoring","Climate data","Urban sustainability","Sensor tech"],
+   budget:"$15K–$150K", grant_type:"Applied"},
+  {id:"nexgen", label:"NexGen Biotech Grants", type:"funder",
+   focus:["Computational biology","Drug discovery","Protein engineering","Genomics"],
+   budget:"$50K–$500K", grant_type:"Research"},
+  {id:"raf", label:"Responsible AI Foundation", type:"funder",
+   focus:["AI alignment","Governance","Interpretability","Red teaming"],
+   budget:"$10K–$100K", grant_type:"Research"},
+
+  // Events
+  {id:"evt_planetary", label:"Planetary Surface Workshop", type:"event", event_type:"Workshop",
+   date:"2026-07-15", entry_level:false, tags:["planetary science","remote sensing","anomaly detection"]},
+  {id:"evt_astrobio", label:"Astrobiology Conference", type:"event", event_type:"Conference",
+   date:"2026-09-22", entry_level:false, tags:["astrobiology","technosignature","ML for science"]},
+  {id:"evt_airquality", label:"Air Quality Field Campaign", type:"event", event_type:"Field campaign",
+   date:"2026-06-01", entry_level:false, tags:["environmental monitoring","sensor network","air quality"]},
+  {id:"evt_citizen", label:"Open Science Program", type:"event", event_type:"Citizen science",
+   date:"2026-04-01", entry_level:true, tags:["open science","citizen science","data collection"]},
+
+  // Mentors
+  {id:"m_vasquez", label:"Dr. Elena Vasquez", type:"mentor",
+   affiliation:"DSV past recipient", expertise:"Orbital anomaly detection"},
+  {id:"m_tanaka", label:"Prof. Kenji Tanaka", type:"mentor",
+   affiliation:"University of Tokyo", expertise:"Planetary remote sensing"},
+  {id:"m_patel", label:"Dr. Raj Patel", type:"mentor",
+   affiliation:"SETI Institute", expertise:"Technosignature detection"},
+  {id:"m_santos", label:"Prof. Maria Santos", type:"mentor",
+   affiliation:"Univ. São Paulo", expertise:"Astrobiology"},
+  {id:"m_osei", label:"Dr. Amara Osei", type:"mentor",
+   affiliation:"GHF past recipient", expertise:"Air quality monitoring"},
+  {id:"m_wei", label:"Prof. Lin Wei", type:"mentor",
+   affiliation:"UC Berkeley", expertise:"Environmental sensing"},
+  {id:"m_lee", label:"Jordan Lee", type:"mentor",
+   affiliation:"Open Science Alliance", expertise:"Community coordination"},
+];
+
+const EDGES = [
+  // Applicant → Funder (applied-to)
+  {source:"applicant_a", target:"dsv", type:"applied", label:"Strong fit"},
+  {source:"applicant_b", target:"dsv", type:"applied", label:"Spray — no fit"},
+  {source:"applicant_c", target:"dsv", type:"applied", label:"Wrong funder"},
+  {source:"applicant_c", target:"ghf", type:"redirect", label:"Better fit (redirect)"},
+  {source:"applicant_d", target:"nexgen", type:"applied", label:"Domain match"},
+  {source:"applicant_e", target:"dsv", type:"applied", label:"Evasion attempt"},
+  {source:"applicant_b_v2", target:"dsv", type:"applied", label:"Post-intervention"},
+
+  // Spray duplicate edges
+  {source:"applicant_b", target:"ghf", type:"spray_dup", label:"Template copy"},
+  {source:"applicant_b", target:"nexgen", type:"spray_dup", label:"Template copy"},
+  {source:"applicant_b", target:"raf", type:"spray_dup", label:"Template copy"},
+  {source:"applicant_e", target:"ghf", type:"spray_dup", label:"Evasion copy"},
+  {source:"applicant_e", target:"nexgen", type:"spray_dup", label:"Evasion copy"},
+  {source:"applicant_e", target:"raf", type:"spray_dup", label:"Evasion copy"},
+
+  // Funder → Event (hosts/connected)
+  {source:"dsv", target:"evt_planetary", type:"funder_event", label:"Connected funder"},
+  {source:"dsv", target:"evt_astrobio", type:"funder_event", label:"Connected funder"},
+  {source:"dsv", target:"evt_citizen", type:"funder_event", label:"Connected funder"},
+  {source:"ghf", target:"evt_airquality", type:"funder_event", label:"Connected funder"},
+  {source:"ghf", target:"evt_citizen", type:"funder_event", label:"Connected funder"},
+
+  // Event → Mentor (mentored-by)
+  {source:"evt_planetary", target:"m_vasquez", type:"mentor", label:"Workshop mentor"},
+  {source:"evt_planetary", target:"m_tanaka", type:"mentor", label:"Workshop mentor"},
+  {source:"evt_astrobio", target:"m_patel", type:"mentor", label:"Conference mentor"},
+  {source:"evt_astrobio", target:"m_santos", type:"mentor", label:"Conference mentor"},
+  {source:"evt_airquality", target:"m_osei", type:"mentor", label:"Campaign mentor"},
+  {source:"evt_airquality", target:"m_wei", type:"mentor", label:"Campaign mentor"},
+  {source:"evt_citizen", target:"m_lee", type:"mentor", label:"Program coordinator"},
+
+  // Applicant → Event (pathway / attended)
+  {source:"applicant_a", target:"evt_planetary", type:"pathway", label:"Domain match"},
+  {source:"applicant_a", target:"evt_astrobio", type:"pathway", label:"Domain match"},
+  {source:"applicant_c", target:"evt_airquality", type:"pathway", label:"Domain match"},
+  {source:"applicant_b_v2", target:"evt_citizen", type:"attended", label:"Completed pathway"},
+  {source:"applicant_d", target:"evt_citizen", type:"pathway", label:"Entry-level pathway"},
+
+  // Collaborations
+  {source:"applicant_a", target:"applicant_b_v2", type:"collab", label:"SpaceHack team"},
+
+  // Stylometric similarity (spray/evasion cluster)
+  {source:"applicant_b", target:"applicant_e", type:"stylometric", label:"High template similarity"},
+  {source:"applicant_b", target:"applicant_b_v2", type:"stylometric", label:"Residual similarity"},
+];
+
+// ── Color / shape config ─────────────────────────────────────────────────────
+
+const COLOR = {
+  genuine: "#00d97e",
+  spray:   "#ff4444",
+  rising:  "#ffb800",
+  funder:  "#00e5ff",
+  event:   "#a855f7",
+  mentor:  "#3a5080",
+};
+
+const EDGE_COLOR = {
+  applied:      "rgba(0,229,255,.35)",
+  redirect:     "rgba(0,217,126,.4)",
+  spray_dup:    "rgba(255,68,68,.3)",
+  funder_event: "rgba(168,85,247,.25)",
+  mentor:       "rgba(58,80,128,.4)",
+  pathway:      "rgba(255,184,0,.25)",
+  attended:     "rgba(0,217,126,.3)",
+  collab:       "rgba(0,229,255,.25)",
+  stylometric:  "rgba(255,68,68,.2)",
+};
+
+const EDGE_DASH = {
+  spray_dup:   "4,4",
+  redirect:    "6,3",
+  pathway:     "3,3",
+  stylometric: "2,4",
+};
+
+const NODE_SIZE = {
+  applicant: 8,
+  funder:    14,
+  event:     10,
+  mentor:    6,
+};
+
+// ── View filters ─────────────────────────────────────────────────────────────
+
+const VIEWS = {
+  all: {
+    nodes: () => true,
+    edges: () => true,
+  },
+  spray: {
+    nodes: (n) => n.type === "funder" ||
+                  (n.type === "applicant" && (n.subtype === "spray" || n.id === "applicant_b_v2")) ||
+                  n.id === "applicant_b" || n.id === "applicant_e",
+    edges: (e) => ["spray_dup","applied","stylometric"].includes(e.type) &&
+                  (e.source.subtype === "spray" || e.source.id === "applicant_b_v2" ||
+                   e.target.subtype === "spray" || e.target.id === "applicant_b_v2" ||
+                   (typeof e.source === "string" ? false : false)),
+  },
+  genuine: {
+    nodes: (n) => n.type !== "applicant" || n.subtype === "genuine" || n.subtype === "rising",
+    edges: (e) => e.type !== "spray_dup" && e.type !== "stylometric",
+  },
+};
+
+// ── Build graph ──────────────────────────────────────────────────────────────
+
+let currentView = "all";
+let width, height;
+const container = document.getElementById("graph");
+const tooltip = document.getElementById("tooltip");
+const infoPanel = document.getElementById("info-panel");
+const ipContent = document.getElementById("ip-content");
+
+const svg = d3.select("#graph").append("svg");
+const defs = svg.append("defs");
+
+// Arrow markers
+["applied","redirect","spray_dup","funder_event","mentor","pathway","attended","collab","stylometric"].forEach(t => {
+  defs.append("marker")
+    .attr("id", `arrow-${t}`)
+    .attr("viewBox","0 0 10 6")
+    .attr("refX", 26).attr("refY", 3)
+    .attr("markerWidth", 8).attr("markerHeight", 6)
+    .attr("orient","auto")
+    .append("path")
+    .attr("d","M0,0 L10,3 L0,6 Z")
+    .attr("fill", EDGE_COLOR[t] || "rgba(255,255,255,.2)");
+});
+
+const g = svg.append("g");
+const linkGroup = g.append("g").attr("class","links");
+const nodeGroup = g.append("g").attr("class","nodes");
+const labelGroup = g.append("g").attr("class","labels");
+
+// Deep copy for D3 mutation
+let nodes = JSON.parse(JSON.stringify(NODES));
+let edges = JSON.parse(JSON.stringify(EDGES));
+
+const simulation = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(edges).id(d => d.id).distance(d => {
+    if (d.type === "mentor") return 60;
+    if (d.type === "funder_event") return 80;
+    if (d.type === "spray_dup") return 100;
+    return 120;
+  }))
+  .force("charge", d3.forceManyBody().strength(d => {
+    if (d.type === "funder") return -400;
+    if (d.type === "event") return -250;
+    return -180;
+  }))
+  .force("center", d3.forceCenter())
+  .force("collision", d3.forceCollide().radius(d => NODE_SIZE[d.type] + 8))
+  .alphaDecay(0.02);
+
+// Zoom
+const zoom = d3.zoom()
+  .scaleExtent([0.3, 4])
+  .on("zoom", (event) => g.attr("transform", event.transform));
+svg.call(zoom);
+
+function resize() {
+  const rect = container.getBoundingClientRect();
+  width = rect.width;
+  height = rect.height;
+  svg.attr("viewBox", [-width/2, -height/2, width, height]);
+  simulation.force("center", d3.forceCenter(0, 0));
+  simulation.alpha(0.3).restart();
+}
+window.addEventListener("resize", resize);
+resize();
+
+// ── Render ───────────────────────────────────────────────────────────────────
+
+function nodeShape(sel) {
+  sel.each(function(d) {
+    const el = d3.select(this);
+    el.selectAll("*").remove();
+    const s = NODE_SIZE[d.type];
+    const col = d.type === "applicant" ? COLOR[d.subtype] :
+                d.type === "funder" ? COLOR.funder :
+                d.type === "event" ? COLOR.event : COLOR.mentor;
+
+    if (d.type === "funder") {
+      // Rounded rect
+      el.append("rect")
+        .attr("x", -s).attr("y", -s*.7)
+        .attr("width", s*2).attr("height", s*1.4)
+        .attr("rx", 3)
+        .attr("fill", col).attr("fill-opacity", .18)
+        .attr("stroke", col).attr("stroke-width", 1.5);
+    } else if (d.type === "event") {
+      // Diamond
+      el.append("path")
+        .attr("d", `M0,${-s} L${s},0 L0,${s} L${-s},0 Z`)
+        .attr("fill", col).attr("fill-opacity", .18)
+        .attr("stroke", col).attr("stroke-width", 1.5);
+    } else {
+      // Circle (applicant, mentor)
+      el.append("circle")
+        .attr("r", s)
+        .attr("fill", col).attr("fill-opacity", .2)
+        .attr("stroke", col).attr("stroke-width", 1.5);
+    }
+  });
+}
+
+function render() {
+  const viewFilter = VIEWS[currentView];
+
+  // Filter
+  const visibleNodeIds = new Set(nodes.filter(viewFilter.nodes).map(n => n.id));
+  const visibleEdges = edges.filter(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    if (!visibleNodeIds.has(sid) || !visibleNodeIds.has(tid)) return false;
+    return viewFilter.edges(e);
+  });
+  const edgeNodeIds = new Set();
+  visibleEdges.forEach(e => {
+    edgeNodeIds.add(typeof e.source === "object" ? e.source.id : e.source);
+    edgeNodeIds.add(typeof e.target === "object" ? e.target.id : e.target);
+  });
+  // In "all" view show everything; in filtered views show only connected nodes
+  const finalNodeIds = currentView === "all" ? visibleNodeIds :
+    new Set([...visibleNodeIds].filter(id => edgeNodeIds.has(id) || nodes.find(n=>n.id===id)?.type === "funder"));
+  const visibleNodes = nodes.filter(n => finalNodeIds.has(n.id));
+
+  // Links
+  const link = linkGroup.selectAll("line").data(visibleEdges, d => `${d.source.id||d.source}-${d.target.id||d.target}-${d.type}`);
+  link.exit().transition().duration(300).attr("opacity", 0).remove();
+  const linkEnter = link.enter().append("line");
+  linkEnter.merge(link)
+    .attr("stroke", d => EDGE_COLOR[d.type] || "rgba(255,255,255,.1)")
+    .attr("stroke-width", d => d.type === "spray_dup" ? 1 : d.type === "applied" ? 1.5 : 1)
+    .attr("stroke-dasharray", d => EDGE_DASH[d.type] || null)
+    .attr("marker-end", d => `url(#arrow-${d.type})`)
+    .attr("opacity", 0).transition().duration(400).attr("opacity", 1);
+
+  // Nodes
+  const node = nodeGroup.selectAll("g.node").data(visibleNodes, d => d.id);
+  node.exit().transition().duration(300).attr("opacity", 0).remove();
+  const nodeEnter = node.enter().append("g").attr("class","node")
+    .attr("opacity", 0)
+    .call(d3.drag()
+      .on("start", dragStart)
+      .on("drag", dragged)
+      .on("end", dragEnd));
+  nodeEnter.transition().duration(400).attr("opacity", 1);
+  const allNodes = nodeEnter.merge(node);
+  allNodes.call(nodeShape);
+
+  // Labels
+  const label = labelGroup.selectAll("text").data(visibleNodes, d => d.id);
+  label.exit().transition().duration(300).attr("opacity", 0).remove();
+  const labelEnter = label.enter().append("text")
+    .attr("text-anchor","middle")
+    .attr("dy", d => NODE_SIZE[d.type] + 14)
+    .attr("fill", d => {
+      if (d.type === "funder") return "#00e5ff";
+      if (d.type === "event") return "#a855f7";
+      return "var(--dim)";
+    })
+    .attr("font-family","'Share Tech Mono', monospace")
+    .attr("font-size", d => d.type === "funder" ? "10px" : d.type === "mentor" ? "8px" : "9px")
+    .attr("letter-spacing",".04em")
+    .attr("opacity", 0)
+    .text(d => d.label);
+  labelEnter.transition().duration(400).attr("opacity", 1);
+
+  // Hover
+  allNodes
+    .on("mouseover", (event, d) => showTooltip(event, d))
+    .on("mousemove", (event) => moveTooltip(event))
+    .on("mouseout", () => hideTooltip())
+    .on("click", (event, d) => showInfoPanel(d));
+
+  // Stats
+  updateStats(visibleNodes, visibleEdges);
+}
+
+// ── Tooltip ──────────────────────────────────────────────────────────────────
+
+function showTooltip(event, d) {
+  let html = `<div class="tt-title">${d.label}</div>`;
+  if (d.type === "applicant") {
+    html += `<div class="tt-type">${d.subtype} applicant</div>`;
+    html += `<div class="tt-row">Domain: <span>${d.domain}</span></div>`;
+    html += `<div class="tt-row">Corpus: <span>${d.corpus ? "Yes" : "None"}</span></div>`;
+    html += `<div class="tt-row">Reputation: <span>${d.reputation}</span></div>`;
+  } else if (d.type === "funder") {
+    html += `<div class="tt-type">Funder · ${d.grant_type}</div>`;
+    html += `<div class="tt-row">Budget: <span>${d.budget}</span></div>`;
+    html += `<div class="tt-row">Focus: <span>${d.focus.join(", ")}</span></div>`;
+  } else if (d.type === "event") {
+    html += `<div class="tt-type">${d.event_type} · ${d.date}</div>`;
+    html += `<div class="tt-row">Entry-level: <span>${d.entry_level ? "Yes" : "No"}</span></div>`;
+    html += `<div class="tt-row">Tags: <span>${d.tags.join(", ")}</span></div>`;
+  } else if (d.type === "mentor") {
+    html += `<div class="tt-type">Mentor</div>`;
+    html += `<div class="tt-row">Affiliation: <span>${d.affiliation}</span></div>`;
+    html += `<div class="tt-row">Expertise: <span>${d.expertise}</span></div>`;
+  }
+  tooltip.innerHTML = html;
+  tooltip.style.opacity = 1;
+  moveTooltip(event);
+}
+
+function moveTooltip(event) {
+  const rect = container.getBoundingClientRect();
+  let x = event.clientX - rect.left + 14;
+  let y = event.clientY - rect.top - 10;
+  if (x + 280 > rect.width) x = event.clientX - rect.left - 290;
+  tooltip.style.left = x + "px";
+  tooltip.style.top = y + "px";
+}
+
+function hideTooltip() {
+  tooltip.style.opacity = 0;
+}
+
+// ── Info panel ───────────────────────────────────────────────────────────────
+
+function showInfoPanel(d) {
+  let html = `<div class="ip-name">${d.label}</div>`;
+  if (d.type === "applicant") {
+    html += `<div class="ip-type">${d.subtype} applicant</div>`;
+    html += `<div class="ip-stat">Domain: <span>${d.domain}</span></div>`;
+    html += `<div class="ip-stat">Corpus: <span>${d.corpus ? "Present" : "Empty"}</span></div>`;
+    html += `<div class="ip-stat">Reputation: <span>${d.reputation}</span></div>`;
+    if (d.details) {
+      html += `<div class="ip-stat">Hackathons: <span>${d.details.hackathons}</span></div>`;
+      html += `<div class="ip-stat">OSS Stars: <span>${d.details.oss_stars}</span></div>`;
+      html += `<div class="ip-stat">Publications: <span>${d.details.publications}</span></div>`;
+      html += `<div class="ip-stat">Collaborations: <span>${d.details.collaborations}</span></div>`;
+    }
+    // Count edges
+    const conns = edges.filter(e =>
+      (e.source.id||e.source) === d.id || (e.target.id||e.target) === d.id);
+    html += `<div class="ip-stat" style="margin-top:6px">Connections: <span>${conns.length}</span></div>`;
+  } else if (d.type === "funder") {
+    html += `<div class="ip-type">Funder · ${d.grant_type}</div>`;
+    html += `<div class="ip-stat">Budget: <span>${d.budget}</span></div>`;
+    html += `<div class="ip-stat">Focus:</div>`;
+    d.focus.forEach(f => html += `<div class="ip-stat">&nbsp;&nbsp;· <span>${f}</span></div>`);
+    const apps = edges.filter(e =>
+      ((e.target.id||e.target) === d.id) && (e.type === "applied" || e.type === "spray_dup"));
+    html += `<div class="ip-stat" style="margin-top:6px">Applications: <span>${apps.length}</span></div>`;
+  } else if (d.type === "event") {
+    html += `<div class="ip-type">${d.event_type}</div>`;
+    html += `<div class="ip-stat">Date: <span>${d.date}</span></div>`;
+    html += `<div class="ip-stat">Entry-level: <span>${d.entry_level ? "Yes" : "No"}</span></div>`;
+    html += `<div class="ip-stat">Tags:</div>`;
+    d.tags.forEach(t => html += `<div class="ip-stat">&nbsp;&nbsp;· <span>${t}</span></div>`);
+  } else if (d.type === "mentor") {
+    html += `<div class="ip-type">Mentor</div>`;
+    html += `<div class="ip-stat">Affiliation: <span>${d.affiliation}</span></div>`;
+    html += `<div class="ip-stat">Expertise: <span>${d.expertise}</span></div>`;
+  }
+  ipContent.innerHTML = html;
+  infoPanel.classList.add("visible");
+}
+
+document.getElementById("ip-close").addEventListener("click", () => {
+  infoPanel.classList.remove("visible");
+});
+
+// ── Stats bar ────────────────────────────────────────────────────────────────
+
+function updateStats(visNodes, visEdges) {
+  const applicants = visNodes.filter(n => n.type === "applicant").length;
+  const funders = visNodes.filter(n => n.type === "funder").length;
+  const events = visNodes.filter(n => n.type === "event").length;
+  document.getElementById("stats-bar").innerHTML =
+    `<div class="stat-chip">Nodes: <span>${visNodes.length}</span></div>` +
+    `<div class="stat-chip">Edges: <span>${visEdges.length}</span></div>` +
+    `<div class="stat-chip">Applicants: <span>${applicants}</span></div>` +
+    `<div class="stat-chip">Funders: <span>${funders}</span></div>` +
+    `<div class="stat-chip">Events: <span>${events}</span></div>`;
+}
+
+// ── Simulation tick ──────────────────────────────────────────────────────────
+
+simulation.on("tick", () => {
+  linkGroup.selectAll("line")
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
+
+  nodeGroup.selectAll("g.node")
+    .attr("transform", d => `translate(${d.x},${d.y})`);
+
+  labelGroup.selectAll("text")
+    .attr("x", d => d.x)
+    .attr("y", d => d.y);
+});
+
+// ── Drag ─────────────────────────────────────────────────────────────────────
+
+function dragStart(event, d) {
+  if (!event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x; d.fy = d.y;
+}
+function dragged(event, d) {
+  d.fx = event.x; d.fy = event.y;
+}
+function dragEnd(event, d) {
+  if (!event.active) simulation.alphaTarget(0);
+  d.fx = null; d.fy = null;
+}
+
+// ── View toggle ──────────────────────────────────────────────────────────────
+
+document.querySelectorAll(".view-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".view-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentView = btn.dataset.view;
+    render();
+  });
+});
+
+// ── Initial render ───────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>

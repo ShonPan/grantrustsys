@@ -17,9 +17,17 @@
   --glow:0 0 18px rgba(0,229,255,.35);--glow-g:0 0 14px rgba(0,217,126,.4);
   --glow-r:0 0 14px rgba(255,68,68,.4);--glow-a:0 0 14px rgba(255,184,0,.4);
 }
+html.light{
+  --bg:#f5f7fa;--surface:#ffffff;--panel:#ffffff;--border:#e0e4ea;
+  --accent:#0088cc;--accent2:#d94000;--green:#00a85a;--amber:#d99a00;--red:#cc3333;
+  --dim:#6b7a90;--text:#1a2030;--textlo:#8a96a8;
+  --glow:0 0 8px rgba(0,136,204,.15);--glow-g:0 0 8px rgba(0,168,90,.15);
+  --glow-r:0 0 8px rgba(204,51,51,.15);--glow-a:0 0 8px rgba(217,154,0,.15);
+}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px}
 body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+html.light body::before{display:none}
 
 /* ── layout ── */
 .shell{max-width:1400px;margin:0 auto;padding:0 24px 80px}
@@ -46,6 +54,10 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
 .engine-dot{width:8px;height:8px;border-radius:50%;background:var(--green);
   box-shadow:var(--glow-g);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:3px;padding:4px 10px;
+  cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--dim);
+  transition:border-color .15s,color .15s;display:flex;align-items:center;gap:6px}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ── two-col ── */
 .main-grid{display:grid;grid-template-columns:380px 1fr;gap:22px;align-items:start}
@@ -244,6 +256,9 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
   </div>
   <div class="hdr-right">
     <div class="track-badge">Track <span>2</span> + <span>3</span> · Apart Research 2026</div>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode">
+      <span id="theme-icon">☀</span><span id="theme-label">LIGHT</span>
+    </button>
     <div class="engine-dot" title="Engine ready"></div>
   </div>
 </header>
@@ -790,6 +805,29 @@ function renderHistory() {
     hg.appendChild(card);
   });
 }
+
+// ── Theme toggle ─────────────────────────────────────────────────────────────
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.classList.add('light');
+    document.getElementById('theme-icon').textContent = '☾';
+    document.getElementById('theme-label').textContent = 'DARK';
+  } else {
+    document.documentElement.classList.remove('light');
+    document.getElementById('theme-icon').textContent = '☀';
+    document.getElementById('theme-label').textContent = 'LIGHT';
+  }
+}
+(function initTheme() {
+  const saved = localStorage.getItem('gts-theme') || 'dark';
+  applyTheme(saved);
+})();
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const isLight = document.documentElement.classList.contains('light');
+  const next = isLight ? 'dark' : 'light';
+  localStorage.setItem('gts-theme', next);
+  applyTheme(next);
+});
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 loadPresets();

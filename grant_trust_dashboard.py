@@ -179,10 +179,15 @@ months improving the scoring system and running it against the full HiRISE archi
 # ── Routes ────────────────────────────────────────────────────────────────────
 
 FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend")
+STATIC_DIR   = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
 @app.route("/")
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
+
+@app.route("/network")
+def network():
+    return send_from_directory(STATIC_DIR, "network.html")
 
 @app.route("/api/status")
 def api_status():
