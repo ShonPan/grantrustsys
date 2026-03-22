@@ -63,6 +63,7 @@ Application text + Applicant record + Funder profile
 grantrustsys/
 ├── demo.py                          # Runs 4 demo cases end-to-end
 ├── intent_detection_engine.py       # Component 1 (Caleb's work, canonical copy)
+├── grant_trust_dashboard.py         # Component 2 generates a the UI and dashboard (run separately from component 1)  
 ├── grant_trust_report.docx          # Whitepaper / report for judges
 ├── red_team_spec.md                 # Red team generation specification
 ├── requirements.txt
