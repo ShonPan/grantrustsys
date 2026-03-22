@@ -106,6 +106,63 @@ svg{width:100%;height:100%}
 .stat-chip{background:var(--panel);border:1px solid var(--border);border-radius:4px;
   padding:6px 12px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.06em}
 .stat-chip span{color:var(--accent)}
+
+/* search bar */
+.search-wrap{position:relative;display:flex;align-items:center;gap:0;flex:1;max-width:340px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;
+  font-size:13px;color:var(--dim);z-index:2}
+.search-input{width:100%;padding:7px 70px 7px 30px;background:var(--surface);border:1px solid var(--border);
+  border-radius:3px;color:var(--text);font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  outline:none;transition:border-color .15s}
+.search-input::placeholder{color:var(--textlo);letter-spacing:.06em}
+.search-input:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;
+  border:1px solid var(--border);border-radius:2px;color:var(--dim);font-family:var(--mono);
+  font-size:9px;letter-spacing:.06em;padding:2px 8px;cursor:pointer;transition:all .15s;
+  text-transform:uppercase;display:none}
+.search-clear.visible{display:block}
+.search-clear:hover{color:var(--accent);border-color:var(--accent)}
+
+/* autocomplete dropdown */
+.autocomplete{position:absolute;top:100%;left:0;right:0;margin-top:4px;background:var(--panel);
+  border:1px solid var(--border);border-radius:4px;max-height:220px;overflow-y:auto;z-index:30;
+  display:none;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.autocomplete.open{display:block}
+.ac-item{padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:10px;
+  transition:background .1s;border-bottom:1px solid var(--border)}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover,.ac-item.active{background:rgba(0,229,255,.08)}
+.ac-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ac-label{font-family:var(--mono);font-size:11px;color:var(--text);flex:1}
+.ac-label em{font-style:normal;color:var(--accent);text-decoration:underline}
+.ac-type{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+
+/* search focus: highlight pulse on matched node */
+@keyframes searchPulse{0%,100%{stroke-width:2;filter:drop-shadow(0 0 6px var(--accent))}50%{stroke-width:4;filter:drop-shadow(0 0 16px var(--accent))}}
+.node-search-hit{animation:searchPulse 1.5s ease-in-out infinite}
+
+/* search detail panel (replaces info panel when search active) */
+.search-detail{position:absolute;top:20px;right:20px;width:300px;max-height:calc(100vh - 160px);
+  background:var(--panel);border:1px solid var(--border);border-radius:6px;z-index:12;
+  display:none;overflow:hidden;flex-direction:column}
+.search-detail.visible{display:flex}
+.sd-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);flex-shrink:0}
+.sd-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);
+  cursor:pointer;font-size:14px;font-family:var(--mono)}
+.sd-close:hover{color:var(--accent)}
+.sd-name{font-size:16px;font-weight:600;color:var(--accent);margin-bottom:3px}
+.sd-type{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.sd-body{padding:12px 16px;overflow-y:auto;flex:1}
+.sd-stat{font-size:12px;color:var(--textlo);line-height:1.7}
+.sd-stat span{color:var(--text)}
+.sd-section{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--dim);
+  text-transform:uppercase;margin:12px 0 6px;padding-top:8px;border-top:1px solid var(--border)}
+.sd-conn{padding:4px 0;font-size:11px;color:var(--textlo);display:flex;gap:6px;align-items:center}
+.sd-conn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sd-conn-type{font-family:var(--mono);font-size:9px;color:var(--dim);margin-left:auto;letter-spacing:.04em}
+.sd-app-text{margin-top:8px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);
+  border-radius:4px;font-size:11px;color:var(--textlo);line-height:1.6;max-height:200px;
+  overflow-y:auto;white-space:pre-wrap;font-family:var(--mono)}
 </style>
 </head>
 <body>
@@ -130,6 +187,13 @@ svg{width:100%;height:100%}
   <button class="view-btn" data-view="spray">Spray Pattern</button>
   <button class="view-btn" data-view="genuine">Genuine Pattern</button>
   <div class="controls-sep"></div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search-input" id="search-input" placeholder="Search nodes…" autocomplete="off"/>
+    <button class="search-clear" id="search-clear">Clear</button>
+    <div class="autocomplete" id="autocomplete"></div>
+  </div>
+  <div class="controls-sep"></div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Genuine</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Spray/Evasion</div>
@@ -142,6 +206,14 @@ svg{width:100%;height:100%}
 
 <div id="graph">
   <div class="tooltip" id="tooltip"></div>
+  <div class="search-detail" id="search-detail">
+    <button class="sd-close" id="sd-close">&times;</button>
+    <div class="sd-header">
+      <div class="sd-name" id="sd-name"></div>
+      <div class="sd-type" id="sd-type"></div>
+    </div>
+    <div class="sd-body" id="sd-body"></div>
+  </div>
   <div class="info-panel" id="info-panel">
     <button class="ip-close" id="ip-close">&times;</button>
     <div class="ip-title">Node Details</div>
@@ -665,6 +737,279 @@ document.querySelectorAll(".view-btn").forEach(btn => {
     currentView = btn.dataset.view;
     render();
   });
+});
+
+// ── Application texts (for search detail panel) ─────────────────────────────
+
+const APP_TEXTS = {
+  applicant_a: `I am applying for the Deep Science Ventures grant to support the next development phase of Xenarch, an unsupervised anomaly detection system for planetary surface technosignatures that I have been building for the past year.
+
+The core technical challenge in this domain is the "rare but natural" problem: fresh craters and unusual geology trigger false positives in naive outlier detectors. My solution was to adapt a Variational Autoencoder trained exclusively on natural geology, combined with a five-metric scoring system (reconstruction error, latent density, contextual analysis, gradient anomaly, edge regularity). The contextual metric carries 30% of the weight specifically to handle circular spacecraft.
+
+Version 2, finalised in February 2026, achieved Rank 1 detection of the Apollo 11 lunar module at 99.58% confidence using both LROC NAC (0.5m/pixel) and Chandrayaan-2 OHRC (0.25m/pixel) imagery.`,
+
+  applicant_b: `I am writing to express my deep interest in the Deep Science Ventures grant opportunity. I am a passionate researcher with a strong background in artificial intelligence and machine learning, and I believe my work would be a transformative addition to your portfolio.
+
+My research leverages cutting-edge deep learning techniques to drive innovation in scientific discovery. I am deeply committed to fostering collaboration and creating impactful outcomes that align with your organisation's holistic approach to funding frontier science.
+
+In conclusion, I believe my skills and experience make me an ideal candidate for this grant.`,
+
+  applicant_c: `This proposal seeks funding for a community-based air quality monitoring initiative using a distributed low-cost sensor network across three urban neighbourhoods.
+
+Over the past 18 months, I have deployed 47 sensor nodes and developed a calibration pipeline that maintains RMSE below 2.5 \u00b5g/m\u00b3 even under varying humidity conditions. The sensors are based on the PMS5003 particulate matter sensor, cross-calibrated against EPA reference monitors at three co-location sites.
+
+The grant would fund expansion to 120 nodes and real-time public data access.`,
+
+  applicant_d: `I am applying for NexGen Biotech funding to develop a computational pipeline for predicting small-molecule binding affinities to disordered protein regions. My current approach uses molecular dynamics simulations combined with graph neural networks trained on the PDBbind dataset.`,
+
+  applicant_e: `I am applying for the Deep Science Ventures grant to support my research into anomaly detection systems for planetary surface analysis. My work combines variational autoencoders with multi-metric scoring to identify technosignatures in orbital imagery.`,
+
+  applicant_b_v2: `I'm applying for the Deep Science Ventures grant to continue development of AstroFind, an anomaly detection tool for planetary surface imagery that I started building at SpaceHack 2026 two months ago.
+
+The project uses a convolutional autoencoder to flag regions of Mars HiRISE imagery that diverge statistically from normal terrain. I shipped the first version of the pipeline in three weeks and presented it at the hackathon.`,
+};
+
+// ── Search ───────────────────────────────────────────────────────────────────
+
+const searchInput = document.getElementById("search-input");
+const searchClear = document.getElementById("search-clear");
+const acDropdown  = document.getElementById("autocomplete");
+const searchDetail = document.getElementById("search-detail");
+let searchActive = false;
+let acIndex = -1;
+
+function getNodeColor(d) {
+  if (d.type === "applicant") return COLOR[d.subtype] || COLOR.genuine;
+  if (d.type === "funder") return COLOR.funder;
+  if (d.type === "event") return COLOR.event;
+  return COLOR.mentor;
+}
+
+function getConnectedIds(nodeId) {
+  const ids = new Set();
+  edges.forEach(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    if (sid === nodeId) ids.add(tid);
+    if (tid === nodeId) ids.add(sid);
+  });
+  return ids;
+}
+
+function getConnectionList(nodeId) {
+  const list = [];
+  edges.forEach(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    let otherId = null;
+    if (sid === nodeId) otherId = tid;
+    else if (tid === nodeId) otherId = sid;
+    if (!otherId) return;
+    const other = nodes.find(n => n.id === otherId);
+    if (other) list.push({ node: other, edgeType: e.type, edgeLabel: e.label });
+  });
+  return list;
+}
+
+function highlightSearch(text, query) {
+  if (!query) return text;
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  return text.slice(0, idx) + "<em>" + text.slice(idx, idx + query.length) + "</em>" + text.slice(idx + query.length);
+}
+
+function showAutocomplete(query) {
+  if (!query) { acDropdown.classList.remove("open"); return; }
+  const q = query.toLowerCase();
+  const matches = NODES.filter(n => n.label.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) { acDropdown.classList.remove("open"); return; }
+
+  acDropdown.innerHTML = matches.map((n, i) =>
+    `<div class="ac-item${i === acIndex ? ' active' : ''}" data-id="${n.id}">
+      <div class="ac-dot" style="background:${getNodeColor(n)}"></div>
+      <div class="ac-label">${highlightSearch(n.label, query)}</div>
+      <div class="ac-type">${n.type}</div>
+    </div>`
+  ).join("");
+  acDropdown.classList.add("open");
+
+  acDropdown.querySelectorAll(".ac-item").forEach(el => {
+    el.addEventListener("mousedown", (ev) => {
+      ev.preventDefault();
+      selectSearchNode(el.dataset.id);
+    });
+  });
+}
+
+function selectSearchNode(nodeId) {
+  const d = nodes.find(n => n.id === nodeId);
+  if (!d) return;
+  searchInput.value = d.label;
+  acDropdown.classList.remove("open");
+  searchClear.classList.add("visible");
+  acIndex = -1;
+  searchActive = true;
+
+  // Hide regular info panel
+  infoPanel.classList.remove("visible");
+
+  // Dim non-connected nodes/edges
+  const connIds = getConnectedIds(d.id);
+  connIds.add(d.id);
+
+  nodeGroup.selectAll("g.node").transition().duration(400)
+    .attr("opacity", n => connIds.has(n.id) ? 1 : 0.15);
+  labelGroup.selectAll("text").transition().duration(400)
+    .attr("opacity", n => connIds.has(n.id) ? 1 : 0.08);
+  linkGroup.selectAll("line").transition().duration(400)
+    .attr("opacity", e => {
+      const sid = typeof e.source === "object" ? e.source.id : e.source;
+      const tid = typeof e.target === "object" ? e.target.id : e.target;
+      return (sid === d.id || tid === d.id) ? 1 : 0.06;
+    });
+
+  // Add pulse class to matched node
+  nodeGroup.selectAll("g.node").classed("node-search-hit", n => n.id === d.id);
+
+  // Zoom to node
+  if (d.x !== undefined && d.y !== undefined) {
+    const scale = 2;
+    svg.transition().duration(700).call(
+      zoom.transform,
+      d3.zoomIdentity.translate(0, 0).scale(scale).translate(-d.x, -d.y)
+    );
+  }
+
+  // Show search detail panel
+  showSearchDetail(d);
+}
+
+function showSearchDetail(d) {
+  document.getElementById("sd-name").textContent = d.label;
+  let typeText = d.type;
+  if (d.type === "applicant") typeText = d.subtype + " applicant";
+  else if (d.type === "funder") typeText = "Funder \u00b7 " + d.grant_type;
+  else if (d.type === "event") typeText = d.event_type;
+  else if (d.type === "mentor") typeText = "Mentor";
+  document.getElementById("sd-type").textContent = typeText;
+
+  let html = "";
+
+  // Node-specific stats
+  if (d.type === "applicant") {
+    if (d.intent_score !== undefined) {
+      const sc = d.intent_score;
+      const col = sc >= 0.60 ? "#00d97e" : sc >= 0.45 ? "#ffb800" : "#ff4444";
+      const sym = sc >= 0.60 ? "\u2713 genuine" : sc >= 0.45 ? "? mixed" : "\u2717 spray";
+      html += `<div class="sd-stat">Intent score: <span style="color:${col}">${sc.toFixed(2)} \u2014 ${sym}</span></div>`;
+    }
+    html += `<div class="sd-stat">Domain: <span>${d.domain}</span></div>`;
+    html += `<div class="sd-stat">Corpus: <span>${d.corpus ? "Present" : "Empty"}</span></div>`;
+    html += `<div class="sd-stat">Reputation: <span>${d.reputation}</span></div>`;
+    if (d.details) {
+      html += `<div class="sd-stat">Hackathons: <span>${d.details.hackathons}</span></div>`;
+      html += `<div class="sd-stat">OSS Stars: <span>${d.details.oss_stars}</span></div>`;
+      html += `<div class="sd-stat">Publications: <span>${d.details.publications}</span></div>`;
+    }
+  } else if (d.type === "funder") {
+    html += `<div class="sd-stat">Budget: <span>${d.budget}</span></div>`;
+    d.focus.forEach(f => html += `<div class="sd-stat">\u00a0\u00a0\u00b7 <span>${f}</span></div>`);
+  } else if (d.type === "event") {
+    html += `<div class="sd-stat">Date: <span>${d.date}</span></div>`;
+    html += `<div class="sd-stat">Entry-level: <span>${d.entry_level ? "Yes" : "No"}</span></div>`;
+    d.tags.forEach(t => html += `<div class="sd-stat">\u00a0\u00a0\u00b7 <span>${t}</span></div>`);
+  } else if (d.type === "mentor") {
+    html += `<div class="sd-stat">Affiliation: <span>${d.affiliation}</span></div>`;
+    html += `<div class="sd-stat">Expertise: <span>${d.expertise}</span></div>`;
+  }
+
+  // Connections list
+  const conns = getConnectionList(d.id);
+  if (conns.length) {
+    html += `<div class="sd-section">Connections (${conns.length})</div>`;
+    conns.forEach(c => {
+      const col = getNodeColor(c.node);
+      html += `<div class="sd-conn">
+        <div class="sd-conn-dot" style="background:${col}"></div>
+        <span style="color:var(--text)">${c.node.label}</span>
+        <span class="sd-conn-type">${c.edgeType.replace(/_/g," ")}</span>
+      </div>`;
+    });
+  }
+
+  // Application text for applicants
+  if (d.type === "applicant" && APP_TEXTS[d.id]) {
+    html += `<div class="sd-section">Application text</div>`;
+    html += `<div class="sd-app-text">${APP_TEXTS[d.id]}</div>`;
+  }
+
+  document.getElementById("sd-body").innerHTML = html;
+  searchDetail.classList.add("visible");
+}
+
+function clearSearch() {
+  searchInput.value = "";
+  searchClear.classList.remove("visible");
+  acDropdown.classList.remove("open");
+  searchDetail.classList.remove("visible");
+  acIndex = -1;
+  searchActive = false;
+
+  // Restore all opacities
+  nodeGroup.selectAll("g.node").transition().duration(300).attr("opacity", 1);
+  labelGroup.selectAll("text").transition().duration(300).attr("opacity", 1);
+  linkGroup.selectAll("line").transition().duration(300).attr("opacity", 1);
+  nodeGroup.selectAll("g.node").classed("node-search-hit", false);
+
+  // Reset zoom
+  svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+}
+
+// Event listeners
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim();
+  searchClear.classList.toggle("visible", q.length > 0);
+  acIndex = -1;
+  showAutocomplete(q);
+  if (!q && searchActive) clearSearch();
+});
+
+searchInput.addEventListener("keydown", (e) => {
+  const items = acDropdown.querySelectorAll(".ac-item");
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    acIndex = Math.min(acIndex + 1, items.length - 1);
+    items.forEach((el, i) => el.classList.toggle("active", i === acIndex));
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    acIndex = Math.max(acIndex - 1, 0);
+    items.forEach((el, i) => el.classList.toggle("active", i === acIndex));
+  } else if (e.key === "Enter") {
+    e.preventDefault();
+    if (acIndex >= 0 && items[acIndex]) {
+      selectSearchNode(items[acIndex].dataset.id);
+    } else if (items.length) {
+      selectSearchNode(items[0].dataset.id);
+    }
+  } else if (e.key === "Escape") {
+    clearSearch();
+    searchInput.blur();
+  }
+});
+
+searchInput.addEventListener("blur", () => {
+  setTimeout(() => acDropdown.classList.remove("open"), 150);
+});
+searchInput.addEventListener("focus", () => {
+  if (searchInput.value.trim()) showAutocomplete(searchInput.value.trim());
+});
+
+searchClear.addEventListener("click", () => { clearSearch(); searchInput.focus(); });
+
+document.getElementById("sd-close").addEventListener("click", clearSearch);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && searchActive) clearSearch();
 });
 
 // ── Theme toggle ─────────────────────────────────────────────────────────────
