@@ -93,12 +93,14 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
 .field .field-hint{font-size:10px;color:var(--textlo);margin-top:4px;letter-spacing:.04em}
 
 /* ── analyse button ── */
-#run-btn{width:100%;padding:13px;background:transparent;border:2px solid var(--accent);
+.run-btn-wrap{position:sticky;top:0;z-index:20;background:var(--bg);padding:0 0 10px;margin-bottom:4px}
+#run-btn{width:100%;padding:16px;background:transparent;border:2px solid var(--accent);
   border-radius:4px;color:var(--accent);font-family:var(--mono);font-size:13px;
   letter-spacing:.18em;cursor:pointer;text-transform:uppercase;box-shadow:var(--glow);
-  transition:background .2s,color .2s,box-shadow .2s;margin-top:4px}
-#run-btn:hover:not(:disabled){background:var(--accent);color:var(--bg);box-shadow:0 0 28px rgba(0,229,255,.6)}
-#run-btn:disabled{opacity:.35;cursor:not-allowed}
+  transition:background .2s,color .2s,box-shadow .2s;animation:btnPulse 2.5s ease-in-out infinite}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 12px rgba(0,229,255,.25)}50%{box-shadow:0 0 24px rgba(0,229,255,.55)}}
+#run-btn:hover:not(:disabled){background:var(--accent);color:var(--bg);box-shadow:0 0 28px rgba(0,229,255,.6);animation:none}
+#run-btn:disabled{opacity:.35;cursor:not-allowed;animation:none}
 
 /* ── error ── */
 .error-msg{background:rgba(255,68,68,.1);border:1px solid rgba(255,68,68,.35);border-radius:4px;
@@ -287,6 +289,11 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
       </div>
     </div>
 
+    <div class="run-btn-wrap">
+      <button id="run-btn" onclick="runAnalysis()">▶ RUN CONTROL GATE</button>
+    </div>
+    <div class="error-msg" id="error-msg"></div>
+
     <!-- Application input -->
     <div class="panel">
       <div class="panel-title">// Application text <span class="panel-title-tag">agent output</span></div>
@@ -312,9 +319,6 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
         <div class="field-hint">Required to fire the COPY_PASTE_RISK flag.</div>
       </div>
     </div>
-
-    <button id="run-btn" onclick="runAnalysis()">▶ RUN CONTROL GATE</button>
-    <div class="error-msg" id="error-msg"></div>
 
   </aside>
 
