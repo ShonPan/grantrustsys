@@ -1,18 +1,17 @@
 """
 Grant Trust System — Dashboard
 ================================
-A Xenarch-style terminal dashboard wrapping the Intent Detection Engine.
+Full control gate dashboard: intent detection + fit scoring + reputation + pathways.
 
 Local dev:
-    pip install flask flask-cors numpy scipy scikit-learn
+    pip install flask flask-cors numpy scipy scikit-learn spacy textstat langdetect
     python grant_trust_dashboard.py
 
 Production:
     gunicorn grant_trust_dashboard:app
-
-Requires intent_detection_engine.py in the same directory.
 """
 
+import glob as globmod
 import os, sys, json, time, threading, traceback
 from typing import Dict, List
 
@@ -20,42 +19,38 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template_string
 from flask_cors import CORS
 
-sys.path.insert(0, os.path.dirname(__file__))
-from intent_detection_engine import (
-    IntentDetectionEngine, ApplicantCorpus, FunderContext
-)
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
+from intent_engine import IntentDetectionEngine, ApplicantCorpus, FunderContext
+from fit_scoring import FitScorer, FunderProfile
+from reputation import ReputationScorer, ApplicantRecord
+from pathways import PathwayGenerator
+from control_gate import ControlGate, GateResult
 
 app   = Flask(__name__)
 CORS(app)
-ENGINE = IntentDetectionEngine()
+GATE = ControlGate()
+
+# ── Load funder profiles and applicant records from data/ ─────────────────────
+
+def load_funder_profiles():
+    profiles = {}
+    for path in sorted(globmod.glob(os.path.join(os.path.dirname(__file__), "data", "funders", "*.json"))):
+        fp = FunderProfile.from_json(path)
+        profiles[fp.funder_id] = fp
+    return profiles
+
+def load_applicant_records():
+    records = {}
+    for path in sorted(globmod.glob(os.path.join(os.path.dirname(__file__), "data", "applicants", "*.json"))):
+        rec = ApplicantRecord.from_json(path)
+        records[rec.applicant_id] = rec
+    return records
+
+FUNDER_PROFILES = load_funder_profiles()
+APPLICANT_RECORDS = load_applicant_records()
+ALL_FUNDERS = list(FUNDER_PROFILES.values())
 
 # ── Demo data ─────────────────────────────────────────────────────────────────
-
-DEMO_FUNDERS = {
-    "deep_science_ventures": FunderContext(
-        funder_id="deep_science_ventures",
-        mission_keywords=["frontier science","planetary","technosignature",
-                          "anomaly detection","remote sensing","ML for science",
-                          "open science","reproducible"],
-        focus_areas=["astrobiology","planetary science","AI/ML","open science"],
-        past_recipient_language=["validated on real orbital data","open-source pipeline",
-                                 "reproducible methodology","NASA","ESA"]
-    ),
-    "civic_tech_fund": FunderContext(
-        funder_id="civic_tech_fund",
-        mission_keywords=["community","urban","public good","civic","open data",
-                          "environmental","sustainability","infrastructure"],
-        focus_areas=["civic technology","environmental monitoring","open data","urban systems"],
-        past_recipient_language=["deployed in production","real users","community partnership"]
-    ),
-    "ai_safety_institute": FunderContext(
-        funder_id="ai_safety_institute",
-        mission_keywords=["alignment","safety","interpretability","robustness",
-                          "evaluation","red-teaming","oversight"],
-        focus_areas=["AI safety","alignment research","interpretability","governance"],
-        past_recipient_language=["empirical safety research","published benchmarks","open weights"]
-    ),
-}
 
 DEMO_CORPUS = {
     "applicant_a": [
@@ -180,12 +175,6 @@ been useful for identifying edge cases I'd missed. I'm looking for funding to sp
 months improving the scoring system and running it against the full HiRISE archive.""",
 }
 
-FUNDER_LABELS = {
-    "deep_science_ventures": "Deep Science Ventures",
-    "civic_tech_fund": "Civic Tech Fund",
-    "ai_safety_institute": "AI Safety Institute",
-}
-
 # ── Frontend HTML ─────────────────────────────────────────────────────────────
 
 FRONTEND = r"""<!DOCTYPE html>
@@ -193,7 +182,7 @@ FRONTEND = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>GRANT TRUST SYSTEM · Intent Detection</title>
+<title>GRANT TRUST SYSTEM · Control Gate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -378,6 +367,48 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
 .sec-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--dim);
   text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Gate decision banner ── */
+.gate-decision{display:flex;align-items:center;gap:18px;padding:18px 22px;
+  border-radius:6px;margin-bottom:18px;background:var(--surface);border:2px solid var(--border)}
+.gate-decision-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+  font-size:22px;font-weight:700;flex-shrink:0}
+.gate-decision.gate-pass{border-color:var(--green)}
+.gate-decision.gate-pass .gate-decision-icon{background:rgba(0,217,126,.15);color:var(--green);box-shadow:var(--glow-g)}
+.gate-decision.gate-interrogate{border-color:var(--amber)}
+.gate-decision.gate-interrogate .gate-decision-icon{background:rgba(255,184,0,.15);color:var(--amber);box-shadow:var(--glow-a)}
+.gate-decision.gate-fail{border-color:var(--red)}
+.gate-decision.gate-fail .gate-decision-icon{background:rgba(255,68,68,.15);color:var(--red);box-shadow:var(--glow-r)}
+.gate-dec-label{font-family:var(--mono);font-size:14px;letter-spacing:.1em}
+.gate-dec-score{font-size:12px;color:var(--dim);margin-top:4px}
+.gate-threshold{color:var(--textlo)}
+.gate-formula{font-family:var(--mono);font-size:10px;color:var(--textlo);margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.gf-term span{color:var(--accent)}
+.gf-plus{color:var(--dim)}
+
+/* ── Pathway actions ── */
+.pathway-header{display:flex;justify-content:space-between;margin-bottom:12px}
+.pathway-gap,.pathway-timeline{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.pathway-action{display:flex;gap:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:8px}
+.pa-category{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;min-width:80px;padding-top:2px}
+.pa-action{font-size:13px;color:var(--text);line-height:1.5}
+.pa-meta{display:flex;gap:12px;margin-top:6px;font-family:var(--mono);font-size:10px}
+.pa-impact{color:var(--dim)}
+.pa-diff{font-weight:600}
+.pa-time{color:var(--textlo)}
+.pathway-resubmit{font-size:12px;color:var(--dim);margin-top:10px;padding:10px;border-left:2px solid var(--accent)}
+.alt-funder{display:inline-block;padding:4px 10px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);
+  border-radius:3px;margin:3px 4px 3px 0;font-family:var(--mono);font-size:11px;color:var(--accent)}
+
+/* ── Interrogation ── */
+.interrog-rationale{font-size:12px;color:var(--dim);margin-bottom:12px}
+.interrog-q{padding:10px 14px;border-left:3px solid var(--amber);background:var(--surface);margin-bottom:6px;border-radius:0 4px 4px 0;font-size:13px;line-height:1.5}
+.iq-num{font-family:var(--mono);color:var(--amber);margin-right:8px;font-weight:700}
+.interrog-note{font-size:10px;color:var(--textlo);margin-top:10px;font-style:italic}
+
+/* ── Fit/rep detail ── */
+.mc-detail{font-family:var(--mono);font-size:10px;color:var(--textlo);margin-top:6px}
+.mc-detail-item{display:flex;justify-content:space-between;padding:2px 0}
 </style>
 </head>
 <body>
@@ -388,7 +419,7 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
   <div class="logo-mark"><div class="logo-cross"></div></div>
   <div class="logo-text">
     <h1>GRANT TRUST SYSTEM</h1>
-    <p>Intent Detection Engine · Control Protocol Demo</p>
+    <p>Control Gate · Full Protocol Demo</p>
   </div>
   <div class="hdr-right">
     <div class="track-badge">Track <span>2</span> + <span>3</span> · Apart Research 2026</div>
@@ -415,11 +446,7 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
 
       <div class="field">
         <label>Funder Profile</label>
-        <select id="funder-select">
-          <option value="deep_science_ventures">Deep Science Ventures</option>
-          <option value="civic_tech_fund">Civic Tech Fund</option>
-          <option value="ai_safety_institute">AI Safety Institute</option>
-        </select>
+        <select id="funder-select"></select>
       </div>
     </div>
 
@@ -449,7 +476,7 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
       </div>
     </div>
 
-    <button id="run-btn" onclick="runAnalysis()">▶ RUN INTENT ANALYSIS</button>
+    <button id="run-btn" onclick="runAnalysis()">▶ RUN CONTROL GATE</button>
     <div class="error-msg" id="error-msg"></div>
 
   </aside>
@@ -466,7 +493,26 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
     <!-- Results -->
     <div id="result-panel">
 
-      <!-- Verdict ring -->
+      <!-- Gate Decision Banner (most prominent element) -->
+      <div class="gate-decision" id="gate-decision">
+        <div class="gate-decision-icon" id="gate-dec-icon">—</div>
+        <div class="gate-decision-body">
+          <div class="gate-dec-label" id="gate-dec-label">Awaiting analysis</div>
+          <div class="gate-dec-score">
+            Match Quality: <span id="gate-match-quality">—</span>
+            <span class="gate-threshold">/ 0.65 threshold</span>
+          </div>
+          <div class="gate-formula">
+            <span class="gf-term">0.35 × Intent (<span id="gf-intent">—</span>)</span>
+            <span class="gf-plus">+</span>
+            <span class="gf-term">0.40 × Fit (<span id="gf-fit">—</span>)</span>
+            <span class="gf-plus">+</span>
+            <span class="gf-term">0.25 × Reputation (<span id="gf-rep">—</span>)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intent Verdict ring -->
       <div class="verdict" id="verdict-hero">
         <div class="ring-wrap">
           <svg viewBox="0 0 104 104">
@@ -490,17 +536,8 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
         </div>
       </div>
 
-      <!-- Control gate decision -->
-      <div class="gate-panel" id="gate-panel">
-        <div class="gate-icon" id="gate-icon">—</div>
-        <div class="gate-body">
-          <div class="gate-verdict" id="gate-verdict">—</div>
-          <div class="gate-detail" id="gate-detail">—</div>
-        </div>
-      </div>
-
-      <!-- Component breakdown -->
-      <div class="sec-label">Component scores</div>
+      <!-- Intent Component breakdown -->
+      <div class="sec-label">Intent detection components</div>
       <div class="breakdown">
         <div class="metric-card">
           <div class="mc-top">
@@ -537,6 +574,29 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
         </div>
       </div>
 
+      <!-- Control Gate Components: Fit + Reputation -->
+      <div class="sec-label">Control gate components</div>
+      <div class="breakdown">
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-label">Fit Score</div>
+            <div class="mc-val" id="m-fit" style="color:var(--accent)">—</div>
+          </div>
+          <div class="mc-bar-outer"><div class="mc-bar-inner" id="b-fit" style="background:var(--accent);width:0%"></div></div>
+          <div class="mc-desc">Mission alignment between application and funder</div>
+          <div class="mc-detail" id="fit-detail"></div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-top">
+            <div class="mc-label">Reputation</div>
+            <div class="mc-val" id="m-rep" style="color:var(--green)">—</div>
+          </div>
+          <div class="mc-bar-outer"><div class="mc-bar-inner" id="b-rep" style="background:var(--green);width:0%"></div></div>
+          <div class="mc-desc">Verified track record — costly signals</div>
+          <div class="mc-detail" id="rep-detail"></div>
+        </div>
+      </div>
+
       <!-- Score history -->
       <div id="history-panel" class="history-panel" style="display:none">
         <div class="sec-label">Session history</div>
@@ -547,9 +607,31 @@ header{display:flex;align-items:center;gap:18px;padding:26px 0 20px;
       <div class="sec-label">Detection flags</div>
       <div class="flags-list" id="flags-list"></div>
 
-      <!-- Suggestions -->
-      <div class="sec-label">Improvement pathways → component 3</div>
-      <div class="suggestions" id="suggestions-list"></div>
+      <!-- Improvement Pathway (shown on FAIL) -->
+      <div id="pathway-panel" style="display:none">
+        <div class="sec-label">Improvement pathway</div>
+        <div class="pathway-header">
+          <div class="pathway-gap" id="pathway-gap">Primary gap: —</div>
+          <div class="pathway-timeline" id="pathway-timeline">Timeline: —</div>
+        </div>
+        <div class="pathway-actions" id="pathway-actions"></div>
+        <div class="pathway-resubmit" id="pathway-resubmit"></div>
+        <div class="pathway-alternatives" id="pathway-alternatives" style="display:none">
+          <div class="sec-label">Better-matched funders</div>
+          <div id="alt-funders-list"></div>
+        </div>
+      </div>
+
+      <!-- Interrogation Protocol (shown on INTERROGATE) -->
+      <div id="interrogation-panel" style="display:none">
+        <div class="sec-label">Interrogation protocol</div>
+        <div class="interrog-rationale" id="interrog-rationale"></div>
+        <div class="interrog-questions" id="interrog-questions"></div>
+        <div class="interrog-note">
+          These questions test whether the principal can answer specific claims
+          in the application. Route to the applicant, not the agent.
+        </div>
+      </div>
 
     </div><!-- /result-panel -->
 
