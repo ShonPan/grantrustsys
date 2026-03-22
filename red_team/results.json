@@ -1,0 +1,1738 @@
+[
+  {
+    "id": "genuine_01",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "planetary_scientist",
+    "intent_score": 0.7308,
+    "label": "likely_genuine",
+    "authorship_score": 0.956,
+    "template_score": 0.9765,
+    "spray_score": 0.3808,
+    "specificity_score": 0.2252,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_02",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "planetary_scientist",
+    "intent_score": 0.7187,
+    "label": "likely_genuine",
+    "authorship_score": 0.9695,
+    "template_score": 0.9763,
+    "spray_score": 0.4231,
+    "specificity_score": 0.1977,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_03",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "planetary_scientist",
+    "intent_score": 0.7368,
+    "label": "likely_genuine",
+    "authorship_score": 0.9583,
+    "template_score": 0.9765,
+    "spray_score": 0.3808,
+    "specificity_score": 0.252,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_04",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "planetary_scientist",
+    "intent_score": 0.7504,
+    "label": "likely_genuine",
+    "authorship_score": 0.9835,
+    "template_score": 0.976,
+    "spray_score": 0.3808,
+    "specificity_score": 0.2829,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_05",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "planetary_scientist",
+    "intent_score": 0.7428,
+    "label": "likely_genuine",
+    "authorship_score": 0.9794,
+    "template_score": 0.9769,
+    "spray_score": 0.3808,
+    "specificity_score": 0.2499,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_06",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "climate_researcher",
+    "intent_score": 0.7581,
+    "label": "likely_genuine",
+    "authorship_score": 0.906,
+    "template_score": 0.9768,
+    "spray_score": 0.3056,
+    "specificity_score": 0.3424,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_07",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "climate_researcher",
+    "intent_score": 0.771,
+    "label": "likely_genuine",
+    "authorship_score": 0.8988,
+    "template_score": 0.9767,
+    "spray_score": 0.3667,
+    "specificity_score": 0.4943,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_08",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "climate_researcher",
+    "intent_score": 0.7414,
+    "label": "likely_genuine",
+    "authorship_score": 0.9081,
+    "template_score": 0.9758,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2572,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_09",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "climate_researcher",
+    "intent_score": 0.7255,
+    "label": "likely_genuine",
+    "authorship_score": 0.8814,
+    "template_score": 0.9768,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2163,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_10",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "opus",
+    "persona": "climate_researcher",
+    "intent_score": 0.7191,
+    "label": "likely_genuine",
+    "authorship_score": 0.9463,
+    "template_score": 0.9762,
+    "spray_score": 0.4278,
+    "specificity_score": 0.2405,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_11",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "ai_safety_researcher",
+    "intent_score": 0.7288,
+    "label": "likely_genuine",
+    "authorship_score": 0.9366,
+    "template_score": 0.9763,
+    "spray_score": 0.3667,
+    "specificity_score": 0.2273,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_12",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "ai_safety_researcher",
+    "intent_score": 0.7106,
+    "label": "likely_genuine",
+    "authorship_score": 0.9353,
+    "template_score": 0.9767,
+    "spray_score": 0.3667,
+    "specificity_score": 0.1375,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_13",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "ai_safety_researcher",
+    "intent_score": 0.7468,
+    "label": "likely_genuine",
+    "authorship_score": 0.9402,
+    "template_score": 0.9765,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2348,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_14",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "ai_safety_researcher",
+    "intent_score": 0.7028,
+    "label": "likely_genuine",
+    "authorship_score": 0.9391,
+    "template_score": 0.9755,
+    "spray_score": 0.4278,
+    "specificity_score": 0.171,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_15",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "ai_safety_researcher",
+    "intent_score": 0.7412,
+    "label": "likely_genuine",
+    "authorship_score": 0.9027,
+    "template_score": 0.9773,
+    "spray_score": 0.1833,
+    "specificity_score": 0.1097,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_16",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "bioinformatician",
+    "intent_score": 0.7361,
+    "label": "likely_genuine",
+    "authorship_score": 0.9371,
+    "template_score": 0.9775,
+    "spray_score": 0.3438,
+    "specificity_score": 0.2328,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_17",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "bioinformatician",
+    "intent_score": 0.6838,
+    "label": "likely_genuine",
+    "authorship_score": 0.931,
+    "template_score": 0.9772,
+    "spray_score": 0.4813,
+    "specificity_score": 0.1523,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_18",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "bioinformatician",
+    "intent_score": 0.7247,
+    "label": "likely_genuine",
+    "authorship_score": 0.9045,
+    "template_score": 0.9773,
+    "spray_score": 0.3438,
+    "specificity_score": 0.2248,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_19",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "bioinformatician",
+    "intent_score": 0.6891,
+    "label": "likely_genuine",
+    "authorship_score": 0.8948,
+    "template_score": 0.9773,
+    "spray_score": 0.4813,
+    "specificity_score": 0.2331,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_20",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "sonnet",
+    "persona": "bioinformatician",
+    "intent_score": 0.6933,
+    "label": "likely_genuine",
+    "authorship_score": 0.8539,
+    "template_score": 0.9775,
+    "spray_score": 0.4125,
+    "specificity_score": 0.2293,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "genuine_21",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "haiku",
+    "persona": "environmental_engineer",
+    "intent_score": 0.762,
+    "label": "likely_genuine",
+    "authorship_score": 0.9483,
+    "template_score": 0.9765,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2989,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_22",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "haiku",
+    "persona": "environmental_engineer",
+    "intent_score": 0.722,
+    "label": "likely_genuine",
+    "authorship_score": 0.7971,
+    "template_score": 0.9774,
+    "spray_score": 0.3667,
+    "specificity_score": 0.4007,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_23",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "haiku",
+    "persona": "environmental_engineer",
+    "intent_score": 0.685,
+    "label": "likely_genuine",
+    "authorship_score": 0.8191,
+    "template_score": 0.9753,
+    "spray_score": 0.4889,
+    "specificity_score": 0.3383,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_24",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "haiku",
+    "persona": "environmental_engineer",
+    "intent_score": 0.7342,
+    "label": "likely_genuine",
+    "authorship_score": 0.8863,
+    "template_score": 0.9762,
+    "spray_score": 0.3667,
+    "specificity_score": 0.3298,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "genuine_25",
+    "category": "genuine",
+    "attack_vector": null,
+    "ground_truth_intent": "genuine",
+    "generating_model": "haiku",
+    "persona": "environmental_engineer",
+    "intent_score": 0.7505,
+    "label": "likely_genuine",
+    "authorship_score": 0.9721,
+    "template_score": 0.9765,
+    "spray_score": 0.3667,
+    "specificity_score": 0.2822,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "spray_01",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.4637,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8752,
+    "spray_score": 0.7214,
+    "specificity_score": 0.1265,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_02",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.4653,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8557,
+    "spray_score": 0.6702,
+    "specificity_score": 0.0947,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "spray_03",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.4976,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8554,
+    "spray_score": 0.5927,
+    "specificity_score": 0.1598,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_04",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.443,
+    "label": "likely_automated",
+    "authorship_score": 0.5,
+    "template_score": 0.8547,
+    "spray_score": 0.7474,
+    "specificity_score": 0.0807,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "spray_05",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.4868,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.854,
+    "spray_score": 0.694,
+    "specificity_score": 0.234,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_06",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.487,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8543,
+    "spray_score": 0.6952,
+    "specificity_score": 0.2359,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_07",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5142,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8503,
+    "spray_score": 0.5931,
+    "specificity_score": 0.2494,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_08",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5132,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8743,
+    "spray_score": 0.5531,
+    "specificity_score": 0.1646,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_09",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5097,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.855,
+    "spray_score": 0.6172,
+    "specificity_score": 0.2514,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_10",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.488,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.8524,
+    "spray_score": 0.6944,
+    "specificity_score": 0.2423,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_11",
+    "category": "spray_and_pray",
+    "attack_vector": "paragraph_reorder",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5283,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9732,
+    "spray_score": 0.635,
+    "specificity_score": 0.2189,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_12",
+    "category": "spray_and_pray",
+    "attack_vector": "paragraph_reorder",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5632,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9511,
+    "spray_score": 0.4286,
+    "specificity_score": 0.163,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_13",
+    "category": "spray_and_pray",
+    "attack_vector": "paragraph_reorder",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5536,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9724,
+    "spray_score": 0.5365,
+    "specificity_score": 0.2233,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_14",
+    "category": "spray_and_pray",
+    "attack_vector": "paragraph_reorder",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5687,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9572,
+    "spray_score": 0.5195,
+    "specificity_score": 0.2964,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_15",
+    "category": "spray_and_pray",
+    "attack_vector": "paragraph_reorder",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.5135,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9531,
+    "spray_score": 0.6588,
+    "specificity_score": 0.1998,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_16",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5143,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9769,
+    "spray_score": 0.6671,
+    "specificity_score": 0.1844,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_17",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5386,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9767,
+    "spray_score": 0.5537,
+    "specificity_score": 0.1643,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_18",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5258,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9764,
+    "spray_score": 0.6292,
+    "specificity_score": 0.1949,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_19",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5231,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9771,
+    "spray_score": 0.6569,
+    "specificity_score": 0.2151,
+    "flags": [
+      "SPRAY_PATTERN_DETECTED: High cross-application uniformity or low funder specificity.",
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_20",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.53,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9765,
+    "spray_score": 0.6399,
+    "specificity_score": 0.2291,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_21",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5274,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9363,
+    "spray_score": 0.6381,
+    "specificity_score": 0.2641,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_22",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5494,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9716,
+    "spray_score": 0.5886,
+    "specificity_score": 0.2684,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_23",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5494,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9534,
+    "spray_score": 0.552,
+    "specificity_score": 0.2455,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_24",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5549,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9347,
+    "spray_score": 0.5288,
+    "specificity_score": 0.2673,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "spray_25",
+    "category": "spray_and_pray",
+    "attack_vector": "template_swap",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "haiku",
+    "persona": null,
+    "intent_score": 0.5195,
+    "label": "mixed",
+    "authorship_score": 0.5,
+    "template_score": 0.9163,
+    "spray_score": 0.6375,
+    "specificity_score": 0.2488,
+    "flags": [
+      "COPY_PASTE_RISK: Very high similarity to other applications by this applicant."
+    ]
+  },
+  {
+    "id": "evasion_01",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7325,
+    "label": "likely_genuine",
+    "authorship_score": 0.9619,
+    "template_score": 0.9575,
+    "spray_score": 0.4231,
+    "specificity_score": 0.3016,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_02",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.736,
+    "label": "likely_genuine",
+    "authorship_score": 0.9488,
+    "template_score": 0.9576,
+    "spray_score": 0.3808,
+    "specificity_score": 0.2858,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_03",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7256,
+    "label": "likely_genuine",
+    "authorship_score": 0.9446,
+    "template_score": 0.9575,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2929,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_04",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7553,
+    "label": "likely_genuine",
+    "authorship_score": 0.9631,
+    "template_score": 0.9776,
+    "spray_score": 0.3808,
+    "specificity_score": 0.3359,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_05",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7449,
+    "label": "likely_genuine",
+    "authorship_score": 0.9518,
+    "template_score": 0.9776,
+    "spray_score": 0.4231,
+    "specificity_score": 0.3537,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_06",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6982,
+    "label": "likely_genuine",
+    "authorship_score": 0.9307,
+    "template_score": 0.9766,
+    "spray_score": 0.4654,
+    "specificity_score": 0.206,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_07",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6986,
+    "label": "likely_genuine",
+    "authorship_score": 0.9225,
+    "template_score": 0.9769,
+    "spray_score": 0.4231,
+    "specificity_score": 0.167,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_08",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7507,
+    "label": "likely_genuine",
+    "authorship_score": 0.978,
+    "template_score": 0.9767,
+    "spray_score": 0.3385,
+    "specificity_score": 0.2388,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_09",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7168,
+    "label": "likely_genuine",
+    "authorship_score": 0.9465,
+    "template_score": 0.9769,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2221,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_10",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7212,
+    "label": "likely_genuine",
+    "authorship_score": 0.9618,
+    "template_score": 0.9765,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2217,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_11",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7159,
+    "label": "likely_genuine",
+    "authorship_score": 0.8847,
+    "template_score": 0.9777,
+    "spray_score": 0.4231,
+    "specificity_score": 0.3092,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_12",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7168,
+    "label": "likely_genuine",
+    "authorship_score": 0.8861,
+    "template_score": 0.9778,
+    "spray_score": 0.4231,
+    "specificity_score": 0.3115,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_13",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7022,
+    "label": "likely_genuine",
+    "authorship_score": 0.8451,
+    "template_score": 0.978,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2997,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_14",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6862,
+    "label": "likely_genuine",
+    "authorship_score": 0.8714,
+    "template_score": 0.9578,
+    "spray_score": 0.4654,
+    "specificity_score": 0.2585,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_15",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7079,
+    "label": "likely_genuine",
+    "authorship_score": 0.8734,
+    "template_score": 0.9779,
+    "spray_score": 0.4231,
+    "specificity_score": 0.286,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_16",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7385,
+    "label": "likely_genuine",
+    "authorship_score": 0.9752,
+    "template_score": 0.9775,
+    "spray_score": 0.4278,
+    "specificity_score": 0.2925,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_17",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7247,
+    "label": "likely_genuine",
+    "authorship_score": 0.7035,
+    "template_score": 0.976,
+    "spray_score": 0.4889,
+    "specificity_score": 0.7091,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "HIGH_SPECIFICITY: Application contains concrete references and funder-specific language.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "evasion_18",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.6502,
+    "label": "likely_genuine",
+    "authorship_score": 0.863,
+    "template_score": 0.9775,
+    "spray_score": 0.55,
+    "specificity_score": 0.172,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "evasion_19",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7371,
+    "label": "likely_genuine",
+    "authorship_score": 0.906,
+    "template_score": 0.9773,
+    "spray_score": 0.3056,
+    "specificity_score": 0.237,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_20",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7278,
+    "label": "likely_genuine",
+    "authorship_score": 0.9216,
+    "template_score": 0.9579,
+    "spray_score": 0.3056,
+    "specificity_score": 0.1911,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_21",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7023,
+    "label": "likely_genuine",
+    "authorship_score": 0.9672,
+    "template_score": 0.9767,
+    "spray_score": 0.4278,
+    "specificity_score": 0.1244,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "evasion_22",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.718,
+    "label": "likely_genuine",
+    "authorship_score": 0.971,
+    "template_score": 0.9765,
+    "spray_score": 0.3667,
+    "specificity_score": 0.1212,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "evasion_23",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7563,
+    "label": "likely_genuine",
+    "authorship_score": 0.9919,
+    "template_score": 0.9765,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2051,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_24",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.742,
+    "label": "likely_genuine",
+    "authorship_score": 0.9595,
+    "template_score": 0.9768,
+    "spray_score": 0.3056,
+    "specificity_score": 0.1815,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "evasion_25",
+    "category": "stylometric_evasion",
+    "attack_vector": "voice_mimicry",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "sonnet",
+    "persona": null,
+    "intent_score": 0.7439,
+    "label": "likely_genuine",
+    "authorship_score": 0.9844,
+    "template_score": 0.9761,
+    "spray_score": 0.3056,
+    "specificity_score": 0.1545,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_01",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7161,
+    "label": "likely_genuine",
+    "authorship_score": 0.9374,
+    "template_score": 0.977,
+    "spray_score": 0.4654,
+    "specificity_score": 0.2847,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_02",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7064,
+    "label": "likely_genuine",
+    "authorship_score": 0.931,
+    "template_score": 0.9769,
+    "spray_score": 0.4278,
+    "specificity_score": 0.199,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "combined_03",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7242,
+    "label": "likely_genuine",
+    "authorship_score": 0.9213,
+    "template_score": 0.9767,
+    "spray_score": 0.3667,
+    "specificity_score": 0.2265,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_04",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.747,
+    "label": "likely_genuine",
+    "authorship_score": 0.9172,
+    "template_score": 0.9769,
+    "spray_score": 0.3438,
+    "specificity_score": 0.3181,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_05",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.733,
+    "label": "likely_genuine",
+    "authorship_score": 0.9301,
+    "template_score": 0.977,
+    "spray_score": 0.3808,
+    "specificity_score": 0.2747,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_06",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7209,
+    "label": "likely_genuine",
+    "authorship_score": 0.9594,
+    "template_score": 0.977,
+    "spray_score": 0.4231,
+    "specificity_score": 0.223,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_07",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7327,
+    "label": "likely_genuine",
+    "authorship_score": 0.9187,
+    "template_score": 0.9767,
+    "spray_score": 0.4278,
+    "specificity_score": 0.3493,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "combined_08",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7439,
+    "label": "likely_genuine",
+    "authorship_score": 0.9241,
+    "template_score": 0.9766,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2447,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_09",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7312,
+    "label": "likely_genuine",
+    "authorship_score": 0.9606,
+    "template_score": 0.9769,
+    "spray_score": 0.4125,
+    "specificity_score": 0.2595,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_10",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.726,
+    "label": "likely_genuine",
+    "authorship_score": 0.954,
+    "template_score": 0.9768,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2568,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_11",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7627,
+    "label": "likely_genuine",
+    "authorship_score": 0.9761,
+    "template_score": 0.9767,
+    "spray_score": 0.3385,
+    "specificity_score": 0.3017,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_12",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.8011,
+    "label": "genuine",
+    "authorship_score": 0.9322,
+    "template_score": 0.9767,
+    "spray_score": 0.2444,
+    "specificity_score": 0.4417,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_13",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7359,
+    "label": "likely_genuine",
+    "authorship_score": 0.941,
+    "template_score": 0.9769,
+    "spray_score": 0.3667,
+    "specificity_score": 0.2552,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_14",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7299,
+    "label": "likely_genuine",
+    "authorship_score": 0.9773,
+    "template_score": 0.977,
+    "spray_score": 0.4125,
+    "specificity_score": 0.2278,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_15",
+    "category": "combined_evasion",
+    "attack_vector": "multi_signal_evasion",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7257,
+    "label": "likely_genuine",
+    "authorship_score": 0.9351,
+    "template_score": 0.9767,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2837,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_16",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7052,
+    "label": "likely_genuine",
+    "authorship_score": 0.974,
+    "template_score": 0.9764,
+    "spray_score": 0.4654,
+    "specificity_score": 0.1761,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_17",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6965,
+    "label": "likely_genuine",
+    "authorship_score": 0.988,
+    "template_score": 0.9763,
+    "spray_score": 0.4889,
+    "specificity_score": 0.1413,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "combined_18",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7438,
+    "label": "likely_genuine",
+    "authorship_score": 0.9732,
+    "template_score": 0.9757,
+    "spray_score": 0.3056,
+    "specificity_score": 0.1715,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_19",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6928,
+    "label": "likely_genuine",
+    "authorship_score": 0.9851,
+    "template_score": 0.9765,
+    "spray_score": 0.4813,
+    "specificity_score": 0.1174,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "combined_20",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.6971,
+    "label": "likely_genuine",
+    "authorship_score": 0.9888,
+    "template_score": 0.9767,
+    "spray_score": 0.5077,
+    "specificity_score": 0.1659,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_21",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7284,
+    "label": "likely_genuine",
+    "authorship_score": 0.9444,
+    "template_score": 0.9765,
+    "spray_score": 0.4231,
+    "specificity_score": 0.2838,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_22",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7071,
+    "label": "likely_genuine",
+    "authorship_score": 0.976,
+    "template_score": 0.9769,
+    "spray_score": 0.4889,
+    "specificity_score": 0.2115,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus.",
+      "NO_FUNDER_ALIGNMENT: Application doesn't reference this funder's focus areas."
+    ]
+  },
+  {
+    "id": "combined_23",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7618,
+    "label": "likely_genuine",
+    "authorship_score": 0.9695,
+    "template_score": 0.9767,
+    "spray_score": 0.3056,
+    "specificity_score": 0.2658,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_24",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7381,
+    "label": "likely_genuine",
+    "authorship_score": 0.9745,
+    "template_score": 0.9764,
+    "spray_score": 0.4125,
+    "specificity_score": 0.2736,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  },
+  {
+    "id": "combined_25",
+    "category": "combined_evasion",
+    "attack_vector": "voice_theft",
+    "ground_truth_intent": "spray_and_pray",
+    "generating_model": "opus",
+    "persona": null,
+    "intent_score": 0.7214,
+    "label": "likely_genuine",
+    "authorship_score": 0.9396,
+    "template_score": 0.9765,
+    "spray_score": 0.4654,
+    "specificity_score": 0.3088,
+    "flags": [
+      "STRONG_AUTHORSHIP_MATCH: Application is stylistically consistent with applicant's corpus."
+    ]
+  }
+]
