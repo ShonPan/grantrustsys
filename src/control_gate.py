@@ -12,6 +12,7 @@ Intent in 0.45–0.60 → INTERROGATE (regardless of match quality)
 See CLAUDE.md for full specification.
 """
 
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
@@ -19,7 +20,7 @@ from typing import Dict, List, Optional
 from intent_engine import IntentDetectionEngine, IntentScore, ApplicantCorpus, FunderContext
 from fit_scoring import FitScorer, FunderProfile
 from reputation import ReputationScorer, ApplicantRecord
-from pathways import PathwayGenerator, ImprovementPathway
+from pathways import PathwayGenerator, ImprovementPathway, load_events
 
 
 @dataclass
@@ -69,11 +70,14 @@ class ControlGate:
     PASS_THRESHOLD = 0.65
     INTERROGATION_RANGE = (0.45, 0.60)
 
-    def __init__(self):
+    def __init__(self, events_dir: str = None):
         self.intent_engine = IntentDetectionEngine()
         self.fit_scorer = FitScorer()
         self.reputation_scorer = ReputationScorer()
         self.pathway_generator = PathwayGenerator()
+        if events_dir is None:
+            events_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "events")
+        self.events = load_events(events_dir)
 
     def evaluate(self,
                  application_text: str,
@@ -155,6 +159,7 @@ class ControlGate:
                 funder_profile={"funder_id": funder_profile.funder_id, "name": funder_profile.name},
                 applicant_record=applicant_dict,
                 all_funders=funder_dicts,
+                events=self.events,
             )
 
         if low <= intent_val <= high:

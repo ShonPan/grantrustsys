@@ -1,0 +1,16 @@
+{
+  "event_id": "environmental_monitoring_campaign_2026",
+  "name": "Urban Air Quality Field Campaign — Summer 2026",
+  "type": "field_campaign",
+  "description": "A six-week field deployment across three US cities instrumenting low-cost sensor networks for hyperlocal air quality monitoring. Participants gain hands-on experience with sensor calibration, data pipeline engineering, and environmental policy communication. Results feed into the EPA Community Air Monitoring Database. Past participants have secured Green Horizons funding.",
+  "date": "2026-06-01",
+  "location": "Chicago, IL / Houston, TX / Oakland, CA",
+  "domain_tags": ["environmental monitoring", "sensor network", "air quality", "calibration", "urban sustainability"],
+  "funder_connections": ["green_horizons_fund"],
+  "mentors": [
+    {"name": "Dr. Amara Osei", "affiliation": "Green Horizons Fund past recipient", "expertise": "Low-cost sensor calibration and environmental data science"},
+    {"name": "Prof. Lin Wei", "affiliation": "UC Berkeley", "expertise": "Urban air quality modeling and environmental justice"}
+  ],
+  "entry_level": false,
+  "url": "https://example.com/air-quality-campaign-2026"
+}

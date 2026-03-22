@@ -12,11 +12,25 @@ See CLAUDE.md for full specification.
 Owner: Shon Pan
 """
 
+import json
+import os
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
 from fit_scoring import FunderProfile
 from reputation import ApplicantRecord
+
+
+def load_events(events_dir: str) -> List[dict]:
+    """Load all event JSON files from a directory."""
+    events = []
+    if not os.path.isdir(events_dir):
+        return events
+    for fname in sorted(os.listdir(events_dir)):
+        if fname.endswith(".json"):
+            with open(os.path.join(events_dir, fname)) as f:
+                events.append(json.load(f))
+    return events
 
 
 @dataclass
@@ -56,6 +70,64 @@ class PathwayGenerator:
     TODO: Implement pathway generation logic.
     """
 
+    def _match_events(self,
+                      primary_gap: str,
+                      funder_id: str,
+                      app_words: set,
+                      events: List[dict]) -> List[PathwayAction]:
+        """Match domain events to an applicant's gap type and domain."""
+        import re as _re
+        matched = []
+
+        if primary_gap in ("combined", "reputation"):
+            # Entry-level events connected to this funder come first
+            entry_events = [e for e in events
+                            if e.get("entry_level") and funder_id in e.get("funder_connections", [])]
+            non_entry = [e for e in events
+                         if not e.get("entry_level") and funder_id in e.get("funder_connections", [])]
+            # Sort non-entry by domain tag overlap with applicant words
+            def _tag_overlap(ev):
+                tags = set()
+                for t in ev.get("domain_tags", []):
+                    tags.update(_re.findall(r'[a-z]{3,}', t.lower()))
+                return len(tags & app_words)
+            non_entry.sort(key=_tag_overlap, reverse=True)
+            for ev in entry_events + non_entry:
+                mentor_names = ", ".join(m["name"] for m in ev.get("mentors", []))
+                level = "entry-level" if ev.get("entry_level") else "advanced"
+                matched.append(PathwayAction(
+                    category="event",
+                    action=f"{ev['name']} ({ev['type']}, {level}) — {ev['date']}, {ev['location']}. "
+                           f"Mentors: {mentor_names}. URL: {ev.get('url', 'N/A')}",
+                    expected_impact="Reputation score +0.15–0.25 (verifiable participation)",
+                    difficulty="easy" if ev.get("entry_level") else "medium",
+                    time_estimate="2 weeks",
+                    verifiable=True,
+                ))
+
+        elif primary_gap == "fit":
+            # Find events whose domain overlaps with applicant AND connect to alternative funders
+            for ev in events:
+                if funder_id in ev.get("funder_connections", []):
+                    continue  # skip current funder — we want alternatives
+                tag_words = set()
+                for t in ev.get("domain_tags", []):
+                    tag_words.update(_re.findall(r'[a-z]{3,}', t.lower()))
+                if len(tag_words & app_words) >= 2:
+                    mentor_names = ", ".join(m["name"] for m in ev.get("mentors", []))
+                    funder_names = ", ".join(ev.get("funder_connections", []))
+                    matched.append(PathwayAction(
+                        category="event",
+                        action=f"{ev['name']} ({ev['type']}) — {ev['date']}, {ev['location']}. "
+                               f"Connects to funder(s): {funder_names}. Mentors: {mentor_names}. URL: {ev.get('url', 'N/A')}",
+                        expected_impact="Fit score +0.20–0.30 with matched funder (builds domain reputation)",
+                        difficulty="medium",
+                        time_estimate="2 weeks",
+                        verifiable=True,
+                    ))
+
+        return matched
+
     def generate(self,
                  intent_score: float,
                  intent_label: str,
@@ -65,7 +137,8 @@ class PathwayGenerator:
                  intent_suggestions: List[str],
                  funder_profile: Optional[dict] = None,
                  applicant_record: Optional[dict] = None,
-                 all_funders: Optional[List[dict]] = None) -> ImprovementPathway:
+                 all_funders: Optional[List[dict]] = None,
+                 events: Optional[List[dict]] = None) -> ImprovementPathway:
         """
         Returns an ImprovementPathway with ordered actions.
 
@@ -95,6 +168,13 @@ class PathwayGenerator:
 
         actions: List[PathwayAction] = []
         alternative_funders: List[str] = []
+
+        # Build word set from applicant's corpus (used by fit matching and event matching)
+        import re as _re
+        app_words = set()
+        if applicant_record:
+            for text in applicant_record.get("corpus", {}).get("texts", []):
+                app_words.update(_re.findall(r'[a-z]{3,}', text.lower()))
 
         # --- Intent gap actions ---
         if primary_gap in ("intent", "combined"):
@@ -157,13 +237,7 @@ class PathwayGenerator:
             # Find alternative funders by comparing applicant's domain words
             # against each funder's keywords and focus areas
             if all_funders and funder_profile:
-                import re as _re
                 current_id = funder_profile.get("funder_id", "")
-                # Build word set from applicant's corpus
-                app_words = set()
-                if applicant_record:
-                    for text in applicant_record.get("corpus", {}).get("texts", []):
-                        app_words.update(_re.findall(r'[a-z]{3,}', text.lower()))
 
                 scored_funders = []
                 for f in all_funders:
@@ -191,6 +265,13 @@ class PathwayGenerator:
                     time_estimate="1 week",
                     verifiable=False,
                 ))
+
+        # --- Event recommendations ---
+        if events:
+            funder_id = ""
+            if funder_profile:
+                funder_id = funder_profile.get("funder_id", "")
+            actions.extend(self._match_events(primary_gap, funder_id, app_words, events))
 
         # Determine timeline
         if primary_gap == "combined":

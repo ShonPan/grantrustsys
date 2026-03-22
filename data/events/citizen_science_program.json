@@ -1,0 +1,15 @@
+{
+  "event_id": "citizen_science_program_2026",
+  "name": "Open Science Data Collection Program",
+  "type": "citizen_science",
+  "description": "A rolling entry program for anyone interested in contributing to real scientific research through data collection, annotation, and quality assurance. No prior research experience required. Participants learn sensor deployment, data validation protocols, and collaborative science workflows. Completers receive a verified credential and mentorship matching for their next research step.",
+  "date": "2026-04-01",
+  "location": "Remote / distributed (online coordination hub)",
+  "domain_tags": ["open science", "data collection", "sensor technology", "citizen science", "environmental monitoring"],
+  "funder_connections": ["deep_science_ventures", "green_horizons_fund"],
+  "mentors": [
+    {"name": "Jordan Lee", "affiliation": "Open Science Alliance", "expertise": "Community coordination and citizen science program design"}
+  ],
+  "entry_level": true,
+  "url": "https://example.com/open-science-program-2026"
+}

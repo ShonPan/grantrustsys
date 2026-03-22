@@ -1,0 +1,16 @@
+{
+  "event_id": "planetary_science_workshop_2026",
+  "name": "Planetary Surface Analysis Workshop 2026",
+  "type": "workshop",
+  "description": "An intensive three-day workshop focused on cutting-edge techniques for planetary surface characterization, including ML-based anomaly detection, spectral analysis pipelines, and remote sensing data fusion. Participants work with real orbital datasets and present original analyses. Past attendees have gone on to publish in Icarus and PSJ.",
+  "date": "2026-07-15",
+  "location": "Pasadena, CA (Caltech campus)",
+  "domain_tags": ["planetary science", "remote sensing", "anomaly detection", "surface analysis"],
+  "funder_connections": ["deep_science_ventures"],
+  "mentors": [
+    {"name": "Dr. Elena Vasquez", "affiliation": "Deep Science Ventures", "expertise": "Orbital debris classification and planetary surface ML"},
+    {"name": "Prof. Kenji Tanaka", "affiliation": "University of Tokyo", "expertise": "Spectral analysis and remote sensing data fusion"}
+  ],
+  "entry_level": false,
+  "url": "https://example.com/planetary-workshop-2026"
+}

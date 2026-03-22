@@ -1,0 +1,16 @@
+{
+  "event_id": "astrobiology_conference_2026",
+  "name": "Astrobiology & Technosignature Detection Conference 2026",
+  "type": "conference",
+  "description": "The premier annual gathering for researchers working at the intersection of astrobiology, technosignature detection, and computational methods for space exploration. Features poster sessions, lightning talks, and a hackathon track where teams prototype detection pipelines using real survey data. Strong track record of connecting early-career researchers with DSV-funded PIs.",
+  "date": "2026-09-22",
+  "location": "Boulder, CO (NIST campus)",
+  "domain_tags": ["astrobiology", "technosignature", "space exploration", "ML for science"],
+  "funder_connections": ["deep_science_ventures"],
+  "mentors": [
+    {"name": "Dr. Raj Patel", "affiliation": "SETI Institute", "expertise": "Signal processing for technosignature search"},
+    {"name": "Prof. Maria Santos", "affiliation": "University of São Paulo", "expertise": "Computational astrobiology and biosignature modeling"}
+  ],
+  "entry_level": false,
+  "url": "https://example.com/astrobio-conference-2026"
+}
