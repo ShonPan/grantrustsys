@@ -4,3 +4,6 @@ scikit-learn
 spacy
 textstat
 langdetect
+flask
+flask-cors
+gunicorn
