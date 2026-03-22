@@ -17,9 +17,17 @@
   --glow:0 0 18px rgba(0,229,255,.35);--glow-g:0 0 14px rgba(0,217,126,.4);
   --glow-r:0 0 14px rgba(255,68,68,.4);--glow-a:0 0 14px rgba(255,184,0,.4);
 }
+html.light{
+  --bg:#f5f7fa;--surface:#ffffff;--panel:#ffffff;--border:#e0e4ea;
+  --accent:#0088cc;--accent2:#d94000;--green:#00a85a;--amber:#d99a00;--red:#cc3333;
+  --dim:#6b7a90;--text:#1a2030;--textlo:#8a96a8;
+  --glow:0 0 8px rgba(0,136,204,.15);--glow-g:0 0 8px rgba(0,168,90,.15);
+  --glow-r:0 0 8px rgba(204,51,51,.15);--glow-a:0 0 8px rgba(217,154,0,.15);
+}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;overflow:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+html.light body::before{display:none}
 
 /* header */
 header{display:flex;align-items:center;gap:18px;padding:16px 24px 14px;
@@ -41,6 +49,10 @@ header{display:flex;align-items:center;gap:18px;padding:16px 24px 14px;
   text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:3px;
   transition:color .15s,border-color .15s}
 .nav-link:hover{color:var(--accent);border-color:var(--accent)}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:3px;padding:4px 10px;
+  cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--dim);
+  transition:border-color .15s,color .15s;display:flex;align-items:center;gap:6px}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
 
 /* controls */
 .controls{display:flex;align-items:center;gap:12px;padding:12px 24px;
@@ -106,6 +118,9 @@ svg{width:100%;height:100%}
   </div>
   <div class="hdr-right">
     <a href="/" class="nav-link">Dashboard</a>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode">
+      <span id="theme-icon">☀</span><span id="theme-label">LIGHT</span>
+    </button>
   </div>
 </header>
 
@@ -141,22 +156,22 @@ svg{width:100%;height:100%}
 const NODES = [
   // Applicants
   {id:"applicant_a", label:"Dr. Caleb Strom", type:"applicant", subtype:"genuine",
-   corpus:true, reputation:"strong", domain:"Planetary science / anomaly detection",
+   intent_score:0.74, corpus:true, reputation:"strong", domain:"Planetary science / anomaly detection",
    details:{hackathons:2, oss_stars:45, publications:1, collaborations:1}},
   {id:"applicant_b", label:"Agent Smith", type:"applicant", subtype:"spray",
-   corpus:false, reputation:"empty", domain:"Generic AI/ML",
+   intent_score:0.18, corpus:false, reputation:"empty", domain:"Generic AI/ML",
    details:{hackathons:0, oss_stars:0, publications:0, collaborations:0}},
   {id:"applicant_c", label:"Dr. Maya Chen", type:"applicant", subtype:"genuine",
-   corpus:true, reputation:"strong", domain:"Environmental / air quality",
+   intent_score:0.71, corpus:true, reputation:"strong", domain:"Environmental / air quality",
    details:{hackathons:1, oss_stars:23, publications:1, collaborations:1}},
   {id:"applicant_d", label:"Riya Patel", type:"applicant", subtype:"rising",
-   corpus:true, reputation:"thin", domain:"Biotech / protein binding",
+   intent_score:0.63, corpus:true, reputation:"thin", domain:"Biotech / protein binding",
    details:{hackathons:1, oss_stars:3, publications:0, collaborations:0}},
   {id:"applicant_e", label:"Evasion Bot", type:"applicant", subtype:"spray",
-   corpus:true, reputation:"empty", domain:"Manufactured evasion",
+   intent_score:0.22, corpus:true, reputation:"empty", domain:"Manufactured evasion",
    details:{hackathons:0, oss_stars:0, publications:0, collaborations:0}},
   {id:"applicant_b_v2", label:"Agent Smith v2", type:"applicant", subtype:"rising",
-   corpus:true, reputation:"thin", domain:"Post-intervention",
+   intent_score:0.54, corpus:true, reputation:"thin", domain:"Post-intervention",
    details:{hackathons:1, oss_stars:7, publications:0, collaborations:1}},
 
   // Funders
@@ -406,6 +421,20 @@ function nodeShape(sel) {
         .attr("r", s)
         .attr("fill", col).attr("fill-opacity", .2)
         .attr("stroke", col).attr("stroke-width", 1.5);
+      // Intent score badge for applicants
+      if (d.type === "applicant" && d.intent_score !== undefined) {
+        const score = d.intent_score;
+        const badgeCol = score >= 0.60 ? "#00d97e" : score >= 0.45 ? "#ffb800" : "#ff4444";
+        const symbol   = score >= 0.60 ? "✓" : score >= 0.45 ? "?" : "✗";
+        el.append("text")
+          .attr("text-anchor","middle")
+          .attr("dy", s + 10)
+          .attr("fill", badgeCol)
+          .attr("font-family","'Share Tech Mono', monospace")
+          .attr("font-size","8px")
+          .attr("letter-spacing",".02em")
+          .text(`${score.toFixed(2)} ${symbol}`);
+      }
     }
   });
 }
@@ -460,9 +489,9 @@ function render() {
   label.exit().transition().duration(300).attr("opacity", 0).remove();
   const labelEnter = label.enter().append("text")
     .attr("text-anchor","middle")
-    .attr("dy", d => NODE_SIZE[d.type] + 14)
+    .attr("dy", d => d.type === "applicant" ? NODE_SIZE[d.type] + 22 : NODE_SIZE[d.type] + 14)
     .attr("fill", d => {
-      if (d.type === "funder") return "#00e5ff";
+      if (d.type === "funder") return "var(--accent)";
       if (d.type === "event") return "#a855f7";
       return "var(--dim)";
     })
@@ -490,6 +519,12 @@ function showTooltip(event, d) {
   let html = `<div class="tt-title">${d.label}</div>`;
   if (d.type === "applicant") {
     html += `<div class="tt-type">${d.subtype} applicant</div>`;
+    if (d.intent_score !== undefined) {
+      const sc = d.intent_score;
+      const col = sc >= 0.60 ? "#00d97e" : sc >= 0.45 ? "#ffb800" : "#ff4444";
+      const sym = sc >= 0.60 ? "✓" : sc >= 0.45 ? "?" : "✗";
+      html += `<div class="tt-row">Intent score: <span style="color:${col}">${sc.toFixed(2)} ${sym}</span></div>`;
+    }
     html += `<div class="tt-row">Domain: <span>${d.domain}</span></div>`;
     html += `<div class="tt-row">Corpus: <span>${d.corpus ? "Yes" : "None"}</span></div>`;
     html += `<div class="tt-row">Reputation: <span>${d.reputation}</span></div>`;
@@ -530,6 +565,12 @@ function showInfoPanel(d) {
   let html = `<div class="ip-name">${d.label}</div>`;
   if (d.type === "applicant") {
     html += `<div class="ip-type">${d.subtype} applicant</div>`;
+    if (d.intent_score !== undefined) {
+      const sc = d.intent_score;
+      const col = sc >= 0.60 ? "#00d97e" : sc >= 0.45 ? "#ffb800" : "#ff4444";
+      const sym = sc >= 0.60 ? "✓ genuine" : sc >= 0.45 ? "? mixed" : "✗ spray";
+      html += `<div class="ip-stat">Intent score: <span style="color:${col}">${sc.toFixed(2)} — ${sym}</span></div>`;
+    }
     html += `<div class="ip-stat">Domain: <span>${d.domain}</span></div>`;
     html += `<div class="ip-stat">Corpus: <span>${d.corpus ? "Present" : "Empty"}</span></div>`;
     html += `<div class="ip-stat">Reputation: <span>${d.reputation}</span></div>`;
@@ -624,6 +665,29 @@ document.querySelectorAll(".view-btn").forEach(btn => {
     currentView = btn.dataset.view;
     render();
   });
+});
+
+// ── Theme toggle ─────────────────────────────────────────────────────────────
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.classList.add('light');
+    document.getElementById('theme-icon').textContent = '☾';
+    document.getElementById('theme-label').textContent = 'DARK';
+  } else {
+    document.documentElement.classList.remove('light');
+    document.getElementById('theme-icon').textContent = '☀';
+    document.getElementById('theme-label').textContent = 'LIGHT';
+  }
+}
+(function initTheme() {
+  const saved = localStorage.getItem('gts-theme') || 'dark';
+  applyTheme(saved);
+})();
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const isLight = document.documentElement.classList.contains('light');
+  const next = isLight ? 'dark' : 'light';
+  localStorage.setItem('gts-theme', next);
+  applyTheme(next);
 });
 
 // ── Initial render ───────────────────────────────────────────────────────────
